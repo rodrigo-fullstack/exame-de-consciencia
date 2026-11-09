@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Exame de consciência</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{--bg:#f2f6fc;--surface:#fff;--ink:#13233f;--mute:#586a88;--line:#d3deee;--accent:#1f4f9e;--on-accent:#fff;--gold:#8f6700;--mark:#e4eefb;--ray:#f2b705;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1a31;--surface:#15264a;--ink:#eaf1fc;--mute:#a3b4d1;--line:#29406b;--accent:#8fb5f2;--on-accent:#0d1a31;--gold:#f2c14e;--mark:#1d335c;--ray:#f2b705}}
+:root[data-theme="dark"]{--bg:#0d1a31;--surface:#15264a;--ink:#eaf1fc;--mute:#a3b4d1;--line:#29406b;--accent:#8fb5f2;--on-accent:#0d1a31;--gold:#f2c14e;--mark:#1d335c;--ray:#f2b705}
+html{scroll-padding-top:env(safe-area-inset-top,0px);color-scheme:light dark}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:19px/1.6 "EB Garamond",Georgia,"Times New Roman",serif}
+main{max-width:640px;margin:0 auto;padding:28px 18px 64px}
+h1{font-size:2.3rem;line-height:1.1;font-weight:500;margin:0 0 .5rem}
+.lead{color:var(--mute);margin:0 0 1.4rem}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:0 0 14px}
+.box h2{font-size:1.15rem;margin:0 0 .3rem;font-weight:600}
+.prayer{font-style:italic;margin:.4rem 0 0}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;margin:0 0 6px;color:var(--mute);font-size:.95rem}
+.track{height:4px;background:var(--line);border-radius:2px;margin-top:6px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:0 0 10px}
+summary{cursor:pointer;padding:14px 18px;font-size:1.2rem;font-weight:500;display:flex;gap:10px;justify-content:space-between;align-items:baseline;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary .n{color:var(--gold);font-weight:600;margin-right:6px}
+summary .c{font-size:.9rem;color:var(--mute);white-space:nowrap}
+summary::after{content:"+";color:var(--mute);font-size:1.3rem;margin-left:4px}
+details[open] summary::after{content:"–"}
+ul{list-style:none;margin:0;padding:0 8px 10px}
+li .q>label{flex:1;display:flex;gap:12px;padding:9px 10px;border-radius:8px;cursor:pointer;align-items:flex-start}
+li .q>label:has(input:checked){background:var(--mark)}
+input[type=checkbox]{width:22px;height:22px;margin:3px 0 0;flex:none;accent-color:var(--accent)}
+button{font:inherit;padding:10px 18px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+#sum h3{font-size:1rem;margin:.9rem 0 .2rem;color:var(--gold)}
+#sum p{margin:.2rem 0;padding-left:.9rem;text-indent:-.9rem}
+.empty{color:var(--mute)}
+#sum p.sub{margin-left:1.2rem;color:var(--mute);font-size:.95em}
+.row{align-items:flex-end}
+.dt input{max-width:none;width:auto}
+#hist .h{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+#hist .h b{flex:1 1 120px;font-weight:600}
+#hist .h small{flex:1 1 100%;color:var(--mute)}
+#hist button{padding:6px 12px;font-size:.9rem}
+button:disabled{opacity:.35;cursor:default}
+h1::after{content:"";display:block;width:56px;height:3px;border-radius:2px;background:var(--ray);margin-top:.55rem}
+.hero{background:linear-gradient(165deg,var(--h1,#2358ae),var(--h2,#143365));color:#fff;border-radius:14px;padding:18px 16px 14px;margin:0 0 20px;text-align:center}
+.hero svg{display:block;width:100%;max-width:300px;height:auto;margin:0 auto}
+.hero p{margin:.6rem 0 0;font-size:.95rem;letter-spacing:.04em}
+.back{margin:0;padding:6px 12px;font-size:.9rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0 14px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px}
+.stat b{display:block;font-size:1.3rem;font-weight:500;line-height:1.2}
+.stat span{font-size:.82rem;line-height:1.25;color:var(--mute);display:block;margin-top:2px}
+.chart{display:flex;align-items:flex-end;gap:6px;height:150px;overflow-x:auto;padding-top:6px}
+.col{flex:1 0 36px;max-width:64px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;background:none;border:0;color:var(--mute);padding:0;font-size:.8rem;border-radius:4px}
+.col i{display:block;width:100%;background:var(--line);border-radius:4px 4px 0 0}
+.col.on i{background:var(--accent)}
+.col.on{color:var(--ink);font-weight:600}
+.dnav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.dnav h2{margin:0}
+.dnav button{padding:2px 14px;font-size:1.3rem}
+.cm{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin:10px 0;font-size:.95rem;line-height:1.3}
+.cm .t{height:6px;background:var(--line);border-radius:3px;overflow:hidden;grid-column:1/3}
+.cm .t i{display:block;height:100%;background:var(--accent)}
+.sl h3{font-size:1rem;margin:.9rem 0 .2rem;color:var(--gold)}
+.sl p{margin:.2rem 0;padding-left:.9rem;text-indent:-.9rem}
+.sl p.sub{margin-left:1.2rem;color:var(--mute);font-size:.95em}
+.lrow{display:flex;justify-content:space-between;width:100%;background:transparent;color:var(--ink);border:0;border-top:1px solid var(--line);border-radius:0;padding:11px 4px}
+.lrow.on{color:var(--accent);font-weight:600}
+@media (max-width:420px){.stats{gap:8px}.stat{padding:10px}.stat b{font-size:1.1rem}}
+.note{color:var(--mute);font-size:.9rem;margin-top:1.6rem}
+
+.q{display:flex;align-items:flex-start;gap:2px}
+.more{flex:none;margin:4px 6px 0 0;padding:6px 10px;font-size:.85rem;background:transparent;color:var(--accent);border:1px solid var(--line);white-space:nowrap}
+.det{display:grid;gap:10px;padding:2px 12px 12px 44px}
+.det[hidden]{display:none}
+.xs{display:grid;gap:8px}
+.xr{display:flex;gap:6px}
+.xr{flex-wrap:wrap}
+.xr .xt{flex:1 1 80px}
+.xr .xq{flex:none;width:118px}
+.xr input{min-width:0;font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.xr .more,.det .add{margin:0}
+.det .add{justify-self:start}
+.f{display:grid;gap:4px;font-size:.9rem;color:var(--mute)}
+.f input,.f textarea{font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%}
+.f input{max-width:150px}
+.f textarea{resize:vertical;min-height:64px}
+.verse{margin:.7rem 0 0;padding:0 4px}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+.tb{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 14px}
+#theme,#pbtn{padding:6px 12px;font-size:.9rem}
+.tb{position:relative}
+.tg{margin-left:auto;display:flex;gap:8px}
+#pmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:30;width:min(340px,100%);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.po{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;color:var(--ink);border:0;border-radius:8px;padding:10px;font-size:1rem;line-height:1.25}
+.po:hover,.po[aria-checked="true"]{background:var(--mark)}
+.po[aria-checked="true"]{font-weight:600}
+.po small{display:block;color:var(--mute);font-weight:400;font-size:.82rem}
+.sw{display:flex;flex:none;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.sw i{display:block;width:14px;height:28px}
+.ck{margin-left:auto;color:var(--accent)}
+.verse p{margin:0;font-size:1.35rem;line-height:1.3;font-style:italic;font-weight:500}
+.verse cite{display:block;margin-top:.55rem;font-size:.9rem;font-style:normal;letter-spacing:.06em;color:var(--cite,#f6d36b)}
+</style>
+</head>
+<body>
+<main>
+<div class="tb"><button class="ghost back" id="back" type="button" hidden>← Início</button><div class="tg"><button id="pbtn" type="button" class="ghost" aria-haspopup="true" aria-expanded="false">Temas ▾</button><button id="theme" type="button" class="ghost"></button></div><div id="pmenu" role="menu" aria-label="Temas" hidden></div></div>
+<section id="home">
+<div class="hero"><svg viewBox="0 0 320 84" role="img" aria-label="Raios de luz"><g stroke="var(--ray)" stroke-width="3" stroke-linecap="round"><line x1="183.6" y1="79.8" x2="232.9" y2="71.1"/><line x1="180.8" y1="72" x2="213.7" y2="53"/><line x1="175.4" y1="65.6" x2="207.6" y2="27.3"/><line x1="168.2" y1="61.4" x2="181.2" y2="25.7"/><line x1="160" y1="60" x2="160" y2="10"/><line x1="151.8" y1="61.4" x2="138.8" y2="25.7"/><line x1="144.6" y1="65.6" x2="112.4" y2="27.3"/><line x1="139.2" y1="72" x2="106.3" y2="53"/><line x1="136.4" y1="79.8" x2="87.1" y2="71.1"/></g><path d="M144 84a16 16 0 0 1 32 0z" fill="var(--ray)"/></svg><blockquote class="verse"><p id="vq">“O importante é fazer a caridade, não falar de caridade.”</p><cite id="vc">Santa Dulce dos Pobres</cite></blockquote></div>
+<h1>Exame de consciência</h1>
+<p class="lead">Acompanhe seus exames ao longo do tempo e comece um novo quando quiser preparar a Confissão.</p>
+<div class="row"><button id="newex" type="button">Novo exame de consciência</button><button id="cont" class="ghost" type="button" hidden></button></div>
+<div id="hbody"></div>
+<p class="note" id="hnote">Identidade visual inspirada nas cores do hábito de Santa Dulce dos Pobres. Este aplicativo é pessoal e não tem vínculo oficial com as Obras Sociais Irmã Dulce.</p>
+</section>
+<div id="exam" hidden>
+<h1>Exame de consciência</h1>
+<p class="lead">Um roteiro simples, a partir dos Dez Mandamentos, para preparar a Confissão. Responda com calma e marque o que precisa confessar.</p>
+
+<div class="box">
+<h2>Antes de começar</h2>
+<p style="margin:0">Faça o sinal da cruz e peça a luz do Espírito Santo.</p>
+<p class="prayer">Senhor, ilumina a minha consciência para que eu veja com verdade o que preciso converter, e dá-me a coragem de confiar na tua misericórdia.</p>
+</div>
+
+<div class="bar"><span id="count">0 itens marcados</span><div class="track"><i id="fill"></i></div></div>
+<div id="list"></div>
+
+<div class="box" id="sumbox">
+<h2>Para levar à Confissão</h2>
+<div id="sum"></div>
+<div class="row">
+<label class="f dt">Data do exame<input type="date" id="exdate"></label>
+<button id="save">Salvar exame</button>
+<button id="copy">Copiar lista</button>
+<button id="clear" class="ghost">Limpar tudo</button>
+</div>
+<p id="msg" class="empty" role="status" style="margin:.6rem 0 0"></p>
+<h2 style="margin-top:1.4rem">Exames salvos</h2>
+<div id="hist"></div>
+</div>
+
+<div class="box">
+<h2>Ato de contrição</h2>
+<p class="prayer" style="margin:0">Meu Deus, eu me arrependo de todo o coração de ter pecado, porque pecando não só mereci as penas por vós justamente estabelecidas, mas principalmente porque vos ofendi, a vós, sumo bem e digno de ser amado sobre todas as coisas. Por isso, proponho firmemente, com o auxílio da vossa graça, não mais pecar e evitar as ocasiões próximas de pecado. Senhor, tende piedade de mim, pecador.</p>
+</div>
+
+<p class="note">Este roteiro é um apoio e não substitui o sacerdote. Na Confissão, diga os pecados com simplicidade e, se tiver dúvida sobre a gravidade de algo, pergunte a ele. O que você marca fica salvo apenas neste aparelho.</p>
+</div>
+</main>
+
+<script>
+var D=[
+{t:"Amar a Deus sobre todas as coisas",q:[
+"Deixei de rezar com regularidade?",
+"Afastei-me de Deus por semanas?",
+"Duvidei voluntariamente da fé?",
+"Neguei alguma verdade que a Igreja ensina?",
+"Coloquei no lugar de Deus o dinheiro, o trabalho, o prazer ou pessoas?",
+"Recorri a horóscopo, cartas, mapa astral ou outras superstições?",
+"Desesperei da misericórdia de Deus?",
+"Abusei da misericórdia de Deus, pecando porque “depois eu confesso”?"]},
+{t:"Não tomar seu santo nome em vão",q:[
+"Usei o nome de Deus, de Nossa Senhora ou dos santos com desrespeito ou em xingamentos?",
+"Fiz juramentos falsos?",
+"Fiz promessas a Deus que não cumpri?",
+"Falei com irreverência das coisas sagradas, da Igreja ou dos sacerdotes?"]},
+{t:"Guardar domingos e festas",q:[
+"Faltei à Missa no domingo ou em festa de preceito sem motivo grave?",
+"Cheguei tarde, saí antes da hora ou fiquei distraído de propósito durante a Missa?",
+"Comunguei em pecado grave, sem me confessar antes?",
+"Deixei de ajudar quem precisava por trabalhar ou me ocupar com outras coisas no dia do Senhor?",
+"Descumpri o jejum e a abstinência nos dias marcados pela Igreja?"]},
+{t:"Honrar pai e mãe",q:[
+"Desrespeitei, desobedeci ou magoei meus pais ou responsáveis?",
+"Abandonei pais ou familiares idosos ou doentes?",
+"Deixei de cuidar da educação e da fé dos meus filhos?",
+"Perdi a paciência com meus filhos?",
+"Faltei com o respeito a professores, patrões ou autoridades legítimas?",
+"Trouxe brigas ou ressentimentos duradouros para dentro da família?"]},
+{t:"Não matar",q:[
+"Guardei ódio, rancor ou desejo de vingança?",
+"Agredi alguém?",
+"Humilhei alguém com palavras?",
+"Participei, apoiei ou aconselhei um aborto?",
+"Prejudiquei minha saúde com abusos de álcool, drogas ou comida?",
+"Dirigi de forma imprudente?",
+"Deixei de perdoar alguém?",
+"Provoquei outros ao pecado com mau exemplo?"]},
+{t:"Não pecar contra a castidade",q:[
+"Cometi atos impuros, sozinho ou com outra pessoa?",
+"Assisti a conteúdo pornográfico ou li e vi o que fere a pureza?",
+"Vivi relações sexuais fora do matrimônio?",
+"Fui infiel?",
+"Usei outra pessoa como objeto?",
+"Vesti-me, falei ou me comportei de modo que levasse outros ao pecado?"]},
+{t:"Não furtar",q:[
+"Roubei ou fiquei com algo que não era meu?",
+"Não devolvi o que peguei emprestado ou não paguei o que devia?",
+"Fui desonesto no trabalho, em contratos, impostos ou contas?",
+"Desperdicei dinheiro ou tempo?",
+"Fui avarento com os pobres?",
+"Danifiquei de propósito bens dos outros ou bens públicos?"]},
+{t:"Não levantar falso testemunho",q:[
+"Menti, exagerei ou enganei para tirar vantagem?",
+"Fiz fofoca, calúnia ou difamei alguém?",
+"Revelei segredos que deveria guardar?",
+"Julguei os outros com precipitação, pensando mal sem motivo?",
+"Escondi pecados na Confissão ou fiz uma confissão sem sinceridade?"]},
+{t:"Guardar a pureza nos pensamentos e desejos",q:[
+"Alimentei pensamentos e fantasias impuras de propósito?",
+"Coloquei-me em ocasiões de pecado, como certas companhias, sites ou lugares?",
+"Descuidei do meu olhar e da minha imaginação?",
+"Tratei o namoro ou a amizade sem respeito pela dignidade da outra pessoa?"]},
+{t:"Não cobiçar as coisas alheias",q:[
+"Tive inveja do que os outros têm ou são?",
+"Fui ganancioso ou apegado ao dinheiro e aos bens?",
+"Fiquei triste com o bem dos outros?",
+"Fiquei alegre com o mal dos outros?",
+"Fui ingrato pelo que Deus me deu?"]}
+];
+var KEY="exame-consciencia-v4",sel={},info={};
+try{var st=JSON.parse(localStorage.getItem(KEY)||"{}");if(st.s&&typeof st.s==="object")sel=st.s;if(st.i&&typeof st.i==="object")info=st.i}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({s:sel,i:info}))}catch(e){}}
+var total=0;D.forEach(function(d){total+=d.q.length});
+var list=document.getElementById("list");
+function build(){
+  list.innerHTML="";
+  D.forEach(function(d,i){
+    var det=document.createElement("details");
+    if(i===0)det.open=true;
+    var sm=document.createElement("summary");
+    sm.innerHTML='<span><span class="n">'+(i+1)+'º</span>'+d.t+'</span><span class="c" id="c'+i+'"></span>';
+    det.appendChild(sm);
+    var ul=document.createElement("ul");
+    d.q.forEach(function(q,j){
+      var id=i+"-"+j,inf=info[id]||{},li=document.createElement("li");
+      var row=document.createElement("div");row.className="q";
+      var lb=document.createElement("label"),cb=document.createElement("input");
+      cb.type="checkbox";cb.checked=!!sel[id];
+      var sp=document.createElement("span");sp.textContent=q;
+      lb.appendChild(cb);lb.appendChild(sp);
+      var btn=document.createElement("button");btn.type="button";btn.className="more";
+      row.appendChild(lb);row.appendChild(btn);li.appendChild(row);
+      var box=document.createElement("div");box.className="det";box.id="d"+id;
+      box.hidden=true;
+      var l1=document.createElement("label");l1.className="f";l1.appendChild(document.createTextNode("Quantidade de vezes (opcional)"));
+      var qty=document.createElement("input");qty.type="number";qty.min="0";qty.inputMode="numeric";qty.value=inf.q||"";l1.appendChild(qty);
+      var l2=document.createElement("label");l2.className="f";l2.appendChild(document.createTextNode("Sua resposta (opcional)"));
+      var ta=document.createElement("textarea");ta.placeholder="Como foi, há quanto tempo, em que circunstâncias…";ta.value=inf.n||"";l2.appendChild(ta);
+      var xw=document.createElement("div");xw.className="xs";
+      var add=document.createElement("button");add.type="button";add.className="more add";add.textContent="+ Adicionar outro pecado";
+      function xrow(v){
+        var r=document.createElement("div");r.className="xr";
+        var t=document.createElement("input");t.type="text";t.className="xt";t.value=v.t||"";t.placeholder="Pecado";t.setAttribute("aria-label","Outro pecado sobre esta pergunta");
+        var rm=document.createElement("button");rm.type="button";rm.className="more";rm.textContent="✕";rm.title="Remover";rm.setAttribute("aria-label","Remover este pecado");
+        var xq=document.createElement("input");xq.type="number";xq.min="0";xq.inputMode="numeric";xq.className="xq";xq.placeholder="Quantidade";xq.setAttribute("aria-label","Quantidade de vezes (opcional)");xq.value=v.q||"";xq.addEventListener("input",onIn);r.appendChild(xq);r.appendChild(t);r.appendChild(rm);xw.appendChild(r);
+        t.addEventListener("input",onIn);
+        rm.addEventListener("click",function(){xw.removeChild(r);onIn()});
+        return t;
+      }
+      (inf.x||[]).forEach(function(z){xrow(typeof z==="string"?{t:z,q:""}:z)});
+      add.addEventListener("click",function(){xrow({t:"",q:""}).focus()});
+      box.appendChild(l1);box.appendChild(l2);box.appendChild(xw);box.appendChild(add);li.appendChild(box);
+      btn.setAttribute("aria-controls",box.id);
+      function sync(){
+        var has=!!(qty.value||ta.value.trim()||[].some.call(xw.querySelectorAll("input"),function(e){return e.value.trim()}));
+        btn.textContent=box.hidden?(has?"Detalhes ●":"Detalhar"):"Fechar";
+        btn.setAttribute("aria-expanded",String(!box.hidden));
+      }
+      btn.addEventListener("click",function(){box.hidden=!box.hidden;sync();if(!box.hidden)qty.focus()});
+      cb.addEventListener("change",function(){if(cb.checked)sel[id]=1;else delete sel[id];save();upd()});
+      function onIn(){
+        var x=[].map.call(xw.querySelectorAll(".xr"),function(r){return {t:r.querySelector(".xt").value.trim(),q:r.querySelector(".xq").value}}).filter(function(z){return z.t||z.q});
+        var v={q:qty.value,n:ta.value,x:x};
+        if(v.q||v.n.trim()||x.length){info[id]=v;if(!cb.checked){cb.checked=true;sel[id]=1}}else delete info[id];
+        save();sync();upd();
+      }
+      qty.addEventListener("input",onIn);ta.addEventListener("input",onIn);
+      sync();ul.appendChild(li);
+    });
+    det.appendChild(ul);list.appendChild(det);
+  });
+}
+function fmt(id,q){
+  var inf=info[id]||{},t=q.replace(/\?\s*$/,"")+".",n=Number(inf.q),d=[];
+  var hq=inf.q!==undefined&&inf.q!==""&&!isNaN(n),qt=n+(n===1?" vez":" vezes");
+  if(inf.n&&inf.n.trim())d.push(inf.n.trim().replace(/\s+/g," ")+(hq?" ("+qt+")":""));else if(hq)d.push(qt);
+  (inf.x||[]).forEach(function(z){if(typeof z==="string")z={t:z,q:""};var m=Number(z.q);d.push((z.t||"(sem descrição)")+(z.q!==""&&!isNaN(m)?" ("+m+(m===1?" vez":" vezes")+")":""))});
+  return {t:t,d:d};
+  return t;
+}
+function items(){
+  var out=[];
+  D.forEach(function(d,i){
+    var qs=[];d.q.forEach(function(q,j){var id=i+"-"+j;if(sel[id])qs.push(fmt(id,q))});
+    if(qs.length)out.push({n:i+1,t:d.t,q:qs});
+  });
+  return out;
+}
+function upd(){
+  var n=Object.keys(sel).length;
+  document.getElementById("count").textContent=n+(n===1?" item marcado":" itens marcados");
+  document.getElementById("fill").style.width=(n/total*100)+"%";
+  D.forEach(function(d,i){
+    var c=0;d.q.forEach(function(q,j){if(sel[i+"-"+j])c++});
+    document.getElementById("c"+i).textContent=c?c+" marcado"+(c>1?"s":""):"";
+  });
+  var box=document.getElementById("sum"),it=items();
+  box.innerHTML="";
+  if(!it.length){box.innerHTML='<p class="empty">Nada marcado ainda. Abra os mandamentos acima e marque o que se aplica a você.</p>';return}
+  it.forEach(function(g){
+    var h=document.createElement("h3");h.textContent=g.n+"º mandamento: "+g.t;box.appendChild(h);
+    g.q.forEach(function(q){var p=document.createElement("p");p.textContent="– "+q.t;box.appendChild(p);q.d.forEach(function(x){var s=document.createElement("p");s.className="sub";s.textContent="• "+x;box.appendChild(s)})});
+  });
+}
+function say(m){document.getElementById("msg").textContent=m}
+document.getElementById("copy").addEventListener("click",function(){
+  var it=items();
+  if(!it.length){say("Marque ao menos um item antes de copiar.");return}
+  var txt=it.map(function(g){return g.n+"º - "+g.t+"\n"+g.q.map(function(q){return "- "+q.t+q.d.map(function(x){return "\n  - "+x}).join("")}).join("\n")}).join("\n\n");
+  function fb(){var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand("copy")}catch(e){}document.body.removeChild(ta);say(ok?"Lista copiada.":"Não foi possível copiar. Selecione o texto da lista manualmente.")}
+  try{navigator.clipboard.writeText(txt).then(function(){say("Lista copiada.")},fb)}catch(e){fb()}
+});
+var clr=document.getElementById("clear"),ct=null;
+clr.addEventListener("click",function(){
+  if(!Object.keys(sel).length&&!Object.keys(info).length)return;
+  if(!ct){clr.textContent="Toque de novo para confirmar";ct=setTimeout(function(){ct=null;clr.textContent="Limpar tudo"},4000);return}
+  clearTimeout(ct);ct=null;clr.textContent="Limpar tudo";
+  sel={};info={};save();build();upd();say("Marcações e respostas apagadas.");
+});
+var HK="exame-consciencia-hist-v1",hist={};
+try{var hh=JSON.parse(localStorage.getItem(HK)||"{}");if(hh&&typeof hh==="object")hist=hh}catch(e){}
+function hsave(){try{localStorage.setItem(HK,JSON.stringify(hist));return true}catch(e){return false}}
+function today(){var d=new Date(),p=function(n){return String(n).padStart(2,"0")};return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())}
+function br(k){var a=k.split("-");return a[2]+"/"+a[1]+"/"+a[0]}
+var dt=document.getElementById("exdate");dt.value=today();
+function ask(btn,label,need,fn){
+  var t=null,orig=btn.textContent;
+  btn.addEventListener("click",function(){
+    if(t!==null){clearTimeout(t);t=null;btn.textContent=orig;fn();return}
+    if(!need()){fn();return}
+    btn.textContent=label;t=setTimeout(function(){t=null;btn.textContent=orig},4000);
+  });
+}
+function rh(){
+  var box=document.getElementById("hist"),ks=Object.keys(hist).sort().reverse();
+  box.innerHTML="";
+  if(!ks.length){box.innerHTML='<p class="empty">Nenhum exame salvo ainda. Marque os itens, escolha a data e toque em Salvar exame.</p>';return}
+  ks.forEach(function(k){
+    var e=hist[k],n=Object.keys(e.s||{}).length,r=document.createElement("div");r.className="h";
+    var b=document.createElement("b");b.textContent=br(k);
+    var o=document.createElement("button");o.type="button";o.textContent="Abrir";
+    var x=document.createElement("button");x.type="button";x.className="ghost";x.textContent="Excluir";
+    var sm=document.createElement("small");sm.textContent=n+(n===1?" item marcado":" itens marcados");
+    r.appendChild(b);r.appendChild(o);r.appendChild(x);r.appendChild(sm);box.appendChild(r);
+    ask(o,"Toque de novo para substituir o exame atual",function(){return Object.keys(sel).length>0},function(){
+      sel=JSON.parse(JSON.stringify(e.s||{}));info=JSON.parse(JSON.stringify(e.i||{}));
+      save();dt.value=k;build();upd();say("Exame de "+br(k)+" aberto.");
+      try{window.scrollTo({top:0,behavior:"smooth"})}catch(er){}
+    });
+    ask(x,"Toque de novo para excluir",function(){return true},function(){
+      delete hist[k];hsave();rh();say("Exame de "+br(k)+" excluído.");
+    });
+  });
+}
+document.getElementById("save").addEventListener("click",function(){
+  var k=dt.value;
+  if(!k){say("Escolha a data do exame.");return}
+  if(!Object.keys(sel).length){say("Marque ao menos um item antes de salvar.");return}
+  var had=!!hist[k];
+  hist[k]={s:JSON.parse(JSON.stringify(sel)),i:JSON.parse(JSON.stringify(info)),at:Date.now()};
+  if(hsave()){rh();flash="Exame de "+br(k)+(had?" atualizado.":" salvo neste aparelho.");cur=k;location.hash="inicio"}
+  else say("Não foi possível salvar neste aparelho.");
+});
+build();upd();rh();
+var cur=null,flash="";
+function mk(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined&&txt!==null)e.textContent=txt;return e}
+function cnt(e){return Object.keys(e.s||{}).length}
+function dsince(k){var a=new Date(k+"T00:00:00"),b=new Date(today()+"T00:00:00");return Math.round((b-a)/864e5)}
+function itemsOf(e){var a=sel,b=info;sel=e.s||{};info=e.i||{};try{return items()}finally{sel=a;info=b}}
+function toText(it){return it.map(function(g){return g.n+"º - "+g.t+"\n"+g.q.map(function(q){return "- "+q.t+q.d.map(function(x){return "\n  - "+x}).join("")}).join("\n")}).join("\n\n")}
+function copyText(txt,ok,fail){
+  function fb(){var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();var r=false;try{r=document.execCommand("copy")}catch(e){}document.body.removeChild(ta);(r?ok:fail)()}
+  try{navigator.clipboard.writeText(txt).then(ok,fb)}catch(e){fb()}
+}
+function rhome(){
+  var body=document.getElementById("hbody");body.innerHTML="";
+  if(flash){var fb0=mk("div","box",flash);fb0.setAttribute("role","status");fb0.style.marginTop="18px";body.appendChild(fb0);flash=""}
+  var n=Object.keys(sel).length,cb=document.getElementById("cont");
+  cb.hidden=!n;cb.textContent="Continuar exame em andamento ("+n+(n===1?" item)":" itens)");
+  var ks=Object.keys(hist).sort();
+  if(!ks.length){body.appendChild(mk("p","empty","Você ainda não salvou nenhum exame. Toque em “Novo exame de consciência” para começar. Depois de salvar, seu histórico aparece aqui."));return}
+  if(!cur||!hist[cur])cur=ks[ks.length-1];
+  var tot=0;ks.forEach(function(k){tot+=cnt(hist[k])});
+  var last=ks[ks.length-1],d=dsince(last),avg=(tot/ks.length).toFixed(1).replace(".",",").replace(/,0$/,"");
+  var sg=mk("div","stats");
+  [[String(ks.length),"Exames salvos"],[d<=0?"hoje":"há "+d+(d===1?" dia":" dias"),"Último exame ("+br(last)+")"],[avg,"Média de itens marcados"]].forEach(function(s){var c=mk("div","stat");c.appendChild(mk("b",null,s[0]));c.appendChild(mk("span",null,s[1]));sg.appendChild(c)});
+  body.appendChild(sg);
+  var cbx=mk("div","box");cbx.appendChild(mk("h2",null,"Itens marcados por exame"));
+  var ch=mk("div","chart"),vis=ks.slice(-12),mx=1;
+  vis.forEach(function(k){mx=Math.max(mx,cnt(hist[k]))});
+  vis.forEach(function(k){
+    var c=cnt(hist[k]),b=mk("button","col"+(k===cur?" on":""));b.type="button";
+    b.setAttribute("aria-label","Exame de "+br(k)+": "+c+" itens marcados");
+    b.appendChild(mk("span",null,String(c)));
+    var bar=mk("i");bar.style.height=Math.max(3,Math.round(c/mx*90))+"px";b.appendChild(bar);
+    b.appendChild(mk("span",null,k.slice(8)+"/"+k.slice(5,7)));
+    b.addEventListener("click",function(){cur=k;rhome()});
+    ch.appendChild(b);
+  });
+  cbx.appendChild(ch);
+  if(ks.length>12)cbx.appendChild(mk("p","empty","Mostrando os 12 exames mais recentes."));
+  body.appendChild(cbx);
+  var e=hist[cur],ix=ks.indexOf(cur),db=mk("div","box");db.id="det";
+  var nav=mk("div","dnav");
+  var pv=mk("button","ghost","‹"),nx=mk("button","ghost","›");
+  pv.type=nx.type="button";
+  pv.setAttribute("aria-label","Exame anterior");nx.setAttribute("aria-label","Próximo exame");
+  pv.disabled=ix===0;nx.disabled=ix===ks.length-1;
+  pv.addEventListener("click",function(){cur=ks[ix-1];rhome()});
+  nx.addEventListener("click",function(){cur=ks[ix+1];rhome()});
+  nav.appendChild(pv);nav.appendChild(mk("h2",null,"Exame de "+br(cur)));nav.appendChild(nx);db.appendChild(nav);
+  var c0=cnt(e),line=c0+(c0===1?" item marcado":" itens marcados");
+  if(ix>0){var df=c0-cnt(hist[ks[ix-1]]);line+=df===0?" (igual ao exame anterior)":" ("+Math.abs(df)+(df<0?" a menos":" a mais")+" que no exame anterior)"}
+  db.appendChild(mk("p","empty",line));
+  D.forEach(function(g,i){
+    var m=0;g.q.forEach(function(q,j){if(e.s&&e.s[i+"-"+j])m++});
+    var r=mk("div","cm");r.appendChild(mk("span",null,(i+1)+"º "+g.t));r.appendChild(mk("span","empty",m+"/"+g.q.length));
+    var t=mk("div","t"),f=mk("i");f.style.width=(m/g.q.length*100)+"%";t.appendChild(f);r.appendChild(t);db.appendChild(r);
+  });
+  var it=itemsOf(e),sl=mk("div","sl");
+  it.forEach(function(g){
+    sl.appendChild(mk("h3",null,g.n+"º mandamento: "+g.t));
+    g.q.forEach(function(q){sl.appendChild(mk("p",null,"– "+q.t));q.d.forEach(function(x){sl.appendChild(mk("p","sub","• "+x))})});
+  });
+  db.appendChild(sl);
+  var rw=mk("div","row"),ed=mk("button",null,"Editar este exame"),cp=mk("button","ghost","Copiar lista"),ms=mk("p","empty");
+  ed.type=cp.type="button";ms.setAttribute("role","status");
+  var kk=cur;
+  cp.addEventListener("click",function(){
+    copyText("Exame de consciência — "+br(kk)+"\n\n"+toText(it),function(){ms.textContent="Lista copiada."},function(){ms.textContent="Não foi possível copiar."});
+  });
+  ask(ed,"Toque de novo para substituir o exame em andamento",function(){return Object.keys(sel).length>0},function(){
+    sel=JSON.parse(JSON.stringify(e.s||{}));info=JSON.parse(JSON.stringify(e.i||{}));
+    save();dt.value=kk;build();upd();say("Exame de "+br(kk)+" aberto.");location.hash="exame";
+  });
+  var dl=mk("button","ghost","Excluir exame");dl.type="button";
+  ask(dl,"Toque de novo para excluir",function(){return true},function(){delete hist[kk];hsave();rh();cur=null;flash="Exame de "+br(kk)+" excluído.";rhome()});
+  rw.appendChild(ed);rw.appendChild(cp);rw.appendChild(dl);db.appendChild(rw);db.appendChild(ms);
+  body.appendChild(db);
+  var lb=mk("div","box");lb.appendChild(mk("h2",null,"Todos os exames"));
+  ks.slice().reverse().forEach(function(k){
+    var c=cnt(hist[k]),b=mk("button","lrow"+(k===cur?" on":""));b.type="button";
+    b.appendChild(mk("span",null,br(k)));b.appendChild(mk("span",null,c+(c===1?" item":" itens")));
+    b.addEventListener("click",function(){cur=k;rhome();try{document.getElementById("det").scrollIntoView({behavior:"smooth"})}catch(er){}});
+    lb.appendChild(b);
+  });
+  body.appendChild(lb);
+}
+function route(){
+  var ex=location.hash==="#exame";
+  document.getElementById("home").hidden=ex;document.getElementById("exam").hidden=!ex;document.getElementById("back").hidden=!ex;
+  if(!ex)rhome();
+  try{window.scrollTo(0,0)}catch(e){}
+}
+window.addEventListener("hashchange",route);
+document.getElementById("back").addEventListener("click",function(){location.hash="inicio"});
+document.getElementById("cont").addEventListener("click",function(){location.hash="exame"});
+ask(document.getElementById("newex"),"Descartar o exame em andamento e começar novo?",function(){return Object.keys(sel).length>0},function(){
+  sel={};info={};save();build();upd();dt.value=today();say("");location.hash="exame";
+});
+var KEYS=["bg","surface","ink","mute","line","accent","on-accent","gold","mark","ray","h1","h2","cite"];
+var DISC=" Este aplicativo é pessoal e não tem vínculo oficial com as Obras Sociais Irmã Dulce.";
+var PAL={
+ dulce:{n:"Santa Dulce dos Pobres",d:"Azul, branco e dourado",v:["O importante é fazer a caridade, não falar de caridade.","Santa Dulce dos Pobres"],note:"Identidade visual inspirada nas cores do hábito de Santa Dulce dos Pobres."+DISC,
+  l:["#f2f6fc","#fff","#13233f","#586a88","#d3deee","#1f4f9e","#fff","#8f6700","#e4eefb","#f2b705","#2358ae","#143365","#f6d36b"],
+  k:["#0d1a31","#15264a","#eaf1fc","#a3b4d1","#29406b","#8fb5f2","#0d1a31","#f2c14e","#1d335c","#f2b705","#2358ae","#143365","#f6d36b"]},
+ verde:{n:"Tempo Comum",d:"Verde",v:["Eu sou a videira, e vós, os ramos.","Jo 15,5"],note:"Tema na cor litúrgica verde, do Tempo Comum.",
+  l:["#f1f6f1","#fff","#16291c","#587060","#d2e0d4","#2e6b3e","#fff","#8a6a00","#e3f0e6","#e0a800","#3a7d4a","#1d4a2b","#f2dc8a"],
+  k:["#0f1c13","#172b1d","#e8f3ea","#a5bfaa","#2b4733","#8fd19e","#0f1c13","#e8c35a","#1e3826","#e0a800","#3a7d4a","#1d4a2b","#f2dc8a"]},
+ roxo:{n:"Advento e Quaresma",d:"Roxo",v:["Convertei-vos e crede no Evangelho.","Mc 1,15"],note:"Tema na cor litúrgica roxa, do Advento e da Quaresma.",
+  l:["#f6f3fa","#fff","#251a3a","#6a5e82","#ddd4ea","#5b3a91","#fff","#8f6700","#ece5f7","#e0b020","#6b45a6","#3b2366","#f1d98a"],
+  k:["#150f22","#20173a","#eee9f8","#b0a4cc","#3a2f5c","#bda4ee","#150f22","#e8c35a","#2b2149","#e0b020","#6b45a6","#3b2366","#f1d98a"]},
+ ouro:{n:"Natal e Páscoa",d:"Branco e dourado",v:["Eu sou a luz do mundo; quem me segue não andará nas trevas.","Jo 8,12"],note:"Tema nas cores litúrgicas branca e dourada, do Natal e da Páscoa.",
+  l:["#faf7f0","#fff","#2b2415","#7a6c4d","#e8dfc8","#8a6a12","#fff","#8a6a12","#f6efd9","#d9a400","#a07c14","#6b500a","#fff3c4"],
+  k:["#1a160c","#261f10","#f6efdc","#c0b58f","#4a3f22","#e8c35a","#1a160c","#e8c35a","#322a14","#e8c35a","#a07c14","#6b500a","#fff3c4"]},
+ vermelho:{n:"Pentecostes",d:"Vermelho",v:["Todos ficaram cheios do Espírito Santo.","At 2,4"],note:"Tema na cor litúrgica vermelha, de Pentecostes.",
+  l:["#fbf3f2","#fff","#2e1614","#7a5a58","#ecd5d2","#a32a22","#fff","#8f6700","#f8e5e2","#e0a800","#b53a30","#70150f","#f6d36b"],
+  k:["#1f0f0e","#301817","#f8e9e7","#c9a9a5","#512a27","#f19a92","#1f0f0e","#f2c14e","#3d1e1c","#e0a800","#b53a30","#70150f","#f6d36b"]}
+};
+var PK2="exame-consciencia-paleta",palId="dulce";
+try{var sp=localStorage.getItem(PK2);if(sp&&PAL[sp])palId=sp}catch(e){}
+function applyPal(){
+  var p=PAL[palId]||PAL.dulce,v=curTheme()==="dark"?p.k:p.l;
+  KEYS.forEach(function(k,i){document.documentElement.style.setProperty("--"+k,v[i])});
+  document.getElementById("vq").textContent="“"+p.v[0]+"”";document.getElementById("vc").textContent=p.v[1];
+  document.getElementById("hnote").textContent=p.note;
+}
+var pbtn=document.getElementById("pbtn"),pm=document.getElementById("pmenu");
+function closeP(){pm.hidden=true;pbtn.setAttribute("aria-expanded","false")}
+function rpm(){
+  pm.innerHTML="";
+  Object.keys(PAL).forEach(function(id){
+    var p=PAL[id],b=mk("button","po");b.type="button";
+    b.setAttribute("role","menuitemradio");b.setAttribute("aria-checked",String(id===palId));
+    var sw=mk("span","sw");
+    [p.l[5],p.l[9],p.l[1]].forEach(function(c){var i=mk("i");i.style.background=c;sw.appendChild(i)});
+    var tx=mk("span");tx.appendChild(document.createTextNode(p.n));tx.appendChild(mk("small",null,p.d));
+    b.appendChild(sw);b.appendChild(tx);
+    if(id===palId)b.appendChild(mk("span","ck","✓"));
+    b.addEventListener("click",function(){palId=id;try{localStorage.setItem(PK2,id)}catch(e){}applyPal();rpm();closeP()});
+    pm.appendChild(b);
+  });
+}
+pbtn.addEventListener("click",function(e){e.stopPropagation();if(pm.hidden){rpm();pm.hidden=false;pbtn.setAttribute("aria-expanded","true")}else closeP()});
+document.addEventListener("click",function(e){if(!pm.hidden&&!pm.contains(e.target))closeP()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!pm.hidden){closeP();pbtn.focus()}});
+var TK="exame-consciencia-tema",tbtn=document.getElementById("theme"),root=document.documentElement;
+function curTheme(){var t=root.getAttribute("data-theme");if(t)return t;return window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}
+function lab(){var d=curTheme()==="dark";tbtn.textContent=d?"☀ Modo claro":"☾ Modo escuro";tbtn.setAttribute("aria-label",d?"Mudar para o modo claro":"Mudar para o modo escuro");applyPal()}
+try{var st0=localStorage.getItem(TK);if(st0==="light"||st0==="dark")root.setAttribute("data-theme",st0)}catch(e){}
+tbtn.addEventListener("click",function(){var t=curTheme()==="dark"?"light":"dark";root.setAttribute("data-theme",t);try{localStorage.setItem(TK,t)}catch(e){}lab()});
+lab();
+try{window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){lab()})}catch(e){}
+route();
+</script>
+</body>
+</html>
