@@ -4,15 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Exame de consciência</title>
+<meta name="description" content="Exame de consciência católico pelos Dez Mandamentos, para preparar a Confissão. Funciona no próprio aparelho, sem enviar dados.">
+<meta name="theme-color" content="#f2f6fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1a31" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Exame de consciência">
+<meta property="og:description" content="Roteiro pelos Dez Mandamentos para preparar a Confissão. Seus dados ficam só no seu aparelho.">
+<meta property="og:url" content="https://rodrigo-fullstack.github.io/exame-de-consciencia/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f4f9e'/%3E%3Cg stroke='%23f2b705' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M32 50V20M22 46 13 34M42 46l9-12M24 32l-6-9M40 32l6-9'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script>try{var t=localStorage.getItem("exame-consciencia-tema");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>
-:root{--bg:#f2f6fc;--surface:#fff;--ink:#13233f;--mute:#586a88;--line:#d3deee;--accent:#1f4f9e;--on-accent:#fff;--gold:#8f6700;--mark:#e4eefb;--ray:#f2b705;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:#f2f6fc;--surface:#fff;--ink:#13233f;--mute:#586a88;--line:#d3deee;--accent:#1f4f9e;--on-accent:#fff;--gold:#8f6700;--mark:#e4eefb;--ray:#f2b705}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1a31;--surface:#15264a;--ink:#eaf1fc;--mute:#a3b4d1;--line:#29406b;--accent:#8fb5f2;--on-accent:#0d1a31;--gold:#f2c14e;--mark:#1d335c;--ray:#f2b705}}
 :root[data-theme="dark"]{--bg:#0d1a31;--surface:#15264a;--ink:#eaf1fc;--mute:#a3b4d1;--line:#29406b;--accent:#8fb5f2;--on-accent:#0d1a31;--gold:#f2c14e;--mark:#1d335c;--ray:#f2b705}
-html{scroll-padding-top:env(safe-area-inset-top,0px);color-scheme:light dark}
+html{box-sizing:border-box;scroll-padding-top:env(safe-area-inset-top,0px);color-scheme:light dark}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:19px/1.6 "EB Garamond",Georgia,"Times New Roman",serif}
+body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg);color:var(--ink);font:19px/1.6 "EB Garamond",Georgia,"Times New Roman",serif}
+/* Safe area: o body empurra o conteúdo para longe do notch; a barra sticky (.bar) também se protege com top:env(). */
 main{max-width:640px;margin:0 auto;padding:28px 18px 64px}
 h1{font-size:2.3rem;line-height:1.1;font-weight:500;margin:0 0 .5rem}
 .lead{color:var(--mute);margin:0 0 1.4rem}
@@ -101,25 +114,54 @@ h1::after{content:"";display:block;width:56px;height:3px;border-radius:2px;backg
 .tg{margin-left:auto;display:flex;gap:8px}
 #pmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:30;width:min(340px,100%);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .po{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;color:var(--ink);border:0;border-radius:8px;padding:10px;font-size:1rem;line-height:1.25}
-.po:hover,.po[aria-checked="true"]{background:var(--mark)}
-.po[aria-checked="true"]{font-weight:600}
+.po:hover,.po[aria-pressed="true"]{background:var(--mark)}
+.po[aria-pressed="true"]{font-weight:600}
 .po small{display:block;color:var(--mute);font-weight:400;font-size:.82rem}
 .sw{display:flex;flex:none;border:1px solid var(--line);border-radius:7px;overflow:hidden}
 .sw i{display:block;width:14px;height:28px}
 .ck{margin-left:auto;color:var(--accent)}
 .verse p{margin:0;font-size:1.35rem;line-height:1.3;font-style:italic;font-weight:500}
 .verse cite{display:block;margin-top:.55rem;font-size:.9rem;font-style:normal;letter-spacing:.06em;color:var(--cite,#f6d36b)}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:18px 20px;max-width:min(420px,92vw);box-shadow:0 20px 45px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(6,12,24,.55)}
+dialog h2{font-size:1.1rem;margin:0 0 .4rem;font-weight:600}
+dialog p{margin:0;color:var(--mute);font-size:.95rem}
+dialog .row{margin-top:16px;justify-content:flex-end;flex-wrap:wrap}
+dialog[open]{max-height:85vh;overflow:auto}
+dialog textarea{width:100%;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;margin:.7rem 0 0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);resize:vertical}
+@media print{
+.tb,.bar,.hero,.row,.more,.note,#histh,#hist,#pmenu{display:none!important}
+body{background:#fff;color:#000}
+main{max-width:none;padding:0}
+.box{break-inside:avoid;border:1px solid #999}
+details,.cm{break-inside:avoid}
+.h{border-top:1px solid #999}
+}
 </style>
 </head>
 <body>
 <main>
-<div class="tb"><button class="ghost back" id="back" type="button" hidden>← Início</button><div class="tg"><button id="pbtn" type="button" class="ghost" aria-haspopup="true" aria-expanded="false">Temas ▾</button><button id="theme" type="button" class="ghost"></button></div><div id="pmenu" role="menu" aria-label="Temas" hidden></div></div>
+<div class="tb"><button class="ghost back" id="back" type="button" hidden>← Início</button><div class="tg"><button id="pbtn" type="button" class="ghost" aria-expanded="false" aria-controls="pmenu">Temas ▾</button><button id="theme" type="button" class="ghost"></button></div><div id="pmenu" role="group" aria-label="Temas" hidden></div></div>
 <section id="home">
 <div class="hero"><svg viewBox="0 0 320 84" role="img" aria-label="Raios de luz"><g stroke="var(--ray)" stroke-width="3" stroke-linecap="round"><line x1="183.6" y1="79.8" x2="232.9" y2="71.1"/><line x1="180.8" y1="72" x2="213.7" y2="53"/><line x1="175.4" y1="65.6" x2="207.6" y2="27.3"/><line x1="168.2" y1="61.4" x2="181.2" y2="25.7"/><line x1="160" y1="60" x2="160" y2="10"/><line x1="151.8" y1="61.4" x2="138.8" y2="25.7"/><line x1="144.6" y1="65.6" x2="112.4" y2="27.3"/><line x1="139.2" y1="72" x2="106.3" y2="53"/><line x1="136.4" y1="79.8" x2="87.1" y2="71.1"/></g><path d="M144 84a16 16 0 0 1 32 0z" fill="var(--ray)"/></svg><blockquote class="verse"><p id="vq">“O importante é fazer a caridade, não falar de caridade.”</p><cite id="vc">Santa Dulce dos Pobres</cite></blockquote></div>
 <h1>Exame de consciência</h1>
 <p class="lead">Acompanhe seus exames ao longo do tempo e comece um novo quando quiser preparar a Confissão.</p>
 <div class="row"><button id="newex" type="button">Novo exame de consciência</button><button id="cont" class="ghost" type="button" hidden></button></div>
 <div id="hbody"></div>
+<div class="box" id="dados">
+<h2>Seus dados</h2>
+<p class="empty" id="dst"></p>
+<p class="note" style="margin-top:.3rem">O histórico fica neste aparelho. Limpar os dados do site apaga tudo — a cópia é a sua rede de segurança.</p>
+<div class="row">
+<button id="backup" class="ghost" type="button">Salvar cópia (.json)</button>
+<button id="restore" class="ghost" type="button">Restaurar cópia</button>
+<button id="wipe" class="ghost" type="button">Apagar tudo</button>
+</div>
+<input type="file" id="file" accept="application/json,.json" hidden>
+<p class="empty" id="dmsg" role="status" style="margin:.6rem 0 0"></p>
+<p class="note" id="pnote" hidden></p>
+<div class="row" id="prow" hidden><button id="persist" class="ghost" type="button">Impedir limpeza automática</button></div>
+</div>
 <p class="note" id="hnote">Identidade visual inspirada nas cores do hábito de Santa Dulce dos Pobres. Este aplicativo é pessoal e não tem vínculo oficial com as Obras Sociais Irmã Dulce.</p>
 </section>
 <div id="exam" hidden>
@@ -132,7 +174,7 @@ h1::after{content:"";display:block;width:56px;height:3px;border-radius:2px;backg
 <p class="prayer">Senhor, ilumina a minha consciência para que eu veja com verdade o que preciso converter, e dá-me a coragem de confiar na tua misericórdia.</p>
 </div>
 
-<div class="bar"><span id="count">0 itens marcados</span><div class="track"><i id="fill"></i></div></div>
+<div class="bar"><span id="count" role="status">0 itens marcados</span><div class="track"><i id="fill"></i></div></div>
 <div id="list"></div>
 
 <div class="box" id="sumbox">
@@ -145,7 +187,7 @@ h1::after{content:"";display:block;width:56px;height:3px;border-radius:2px;backg
 <button id="clear" class="ghost">Limpar tudo</button>
 </div>
 <p id="msg" class="empty" role="status" style="margin:.6rem 0 0"></p>
-<h2 style="margin-top:1.4rem">Exames salvos</h2>
+<h2 style="margin-top:1.4rem" id="histh">Exames salvos</h2>
 <div id="hist"></div>
 </div>
 
@@ -161,75 +203,98 @@ h1::after{content:"";display:block;width:56px;height:3px;border-radius:2px;backg
 <script>
 var D=[
 {t:"Amar a Deus sobre todas as coisas",q:[
-"Deixei de rezar com regularidade?",
-"Afastei-me de Deus por semanas?",
-"Duvidei voluntariamente da fé?",
-"Neguei alguma verdade que a Igreja ensina?",
-"Coloquei no lugar de Deus o dinheiro, o trabalho, o prazer ou pessoas?",
-"Recorri a horóscopo, cartas, mapa astral ou outras superstições?",
-"Desesperei da misericórdia de Deus?",
-"Abusei da misericórdia de Deus, pecando porque “depois eu confesso”?"]},
+{id:"m1-deixei-rezar",t:"Deixei de rezar com regularidade?"},
+{id:"m1-afastei-deus",t:"Afastei-me de Deus por semanas?"},
+{id:"m1-duvidei-voluntariamente",t:"Duvidei voluntariamente da fé?"},
+{id:"m1-neguei-alguma-verdade",t:"Neguei alguma verdade que a Igreja ensina?"},
+{id:"m1-coloquei-lugar",t:"Coloquei no lugar de Deus o dinheiro, o trabalho, o prazer ou pessoas?"},
+{id:"m1-recorri-horoscopo",t:"Recorri a horóscopo, cartas, mapa astral ou outras superstições?"},
+{id:"m1-desesperei-misericordia",t:"Desesperei da misericórdia de Deus?"},
+{id:"m1-abusei-misericordia",t:"Abusei da misericórdia de Deus, pecando porque “depois eu confesso”?"}
+]},
 {t:"Não tomar seu santo nome em vão",q:[
-"Usei o nome de Deus, de Nossa Senhora ou dos santos com desrespeito ou em xingamentos?",
-"Fiz juramentos falsos?",
-"Fiz promessas a Deus que não cumpri?",
-"Falei com irreverência das coisas sagradas, da Igreja ou dos sacerdotes?"]},
+{id:"m2-usei-nome-deus",t:"Usei o nome de Deus, de Nossa Senhora ou dos santos com desrespeito ou em xingamentos?"},
+{id:"m2-fiz-juramentos",t:"Fiz juramentos falsos?"},
+{id:"m2-fiz-promessas-deus",t:"Fiz promessas a Deus que não cumpri?"},
+{id:"m2-falei-com-irreverencia",t:"Falei com irreverência das coisas sagradas, da Igreja ou dos sacerdotes?"}
+]},
 {t:"Guardar domingos e festas",q:[
-"Faltei à Missa no domingo ou em festa de preceito sem motivo grave?",
-"Cheguei tarde, saí antes da hora ou fiquei distraído de propósito durante a Missa?",
-"Comunguei em pecado grave, sem me confessar antes?",
-"Deixei de ajudar quem precisava por trabalhar ou me ocupar com outras coisas no dia do Senhor?",
-"Descumpri o jejum e a abstinência nos dias marcados pela Igreja?"]},
+{id:"m3-faltei-missa-domingo",t:"Faltei à Missa no domingo ou em festa de preceito sem motivo grave?"},
+{id:"m3-cheguei-tarde-sai",t:"Cheguei tarde, saí antes da hora ou fiquei distraído de propósito durante a Missa?"},
+{id:"m3-comunguei-pecado",t:"Comunguei em pecado grave, sem me confessar antes?"},
+{id:"m3-deixei-ajudar-quem",t:"Deixei de ajudar quem precisava por trabalhar ou me ocupar com outras coisas no dia do Senhor?"},
+{id:"m3-descumpri-jejum",t:"Descumpri o jejum e a abstinência nos dias marcados pela Igreja?"}
+]},
 {t:"Honrar pai e mãe",q:[
-"Desrespeitei, desobedeci ou magoei meus pais ou responsáveis?",
-"Abandonei pais ou familiares idosos ou doentes?",
-"Deixei de cuidar da educação e da fé dos meus filhos?",
-"Perdi a paciência com meus filhos?",
-"Faltei com o respeito a professores, patrões ou autoridades legítimas?",
-"Trouxe brigas ou ressentimentos duradouros para dentro da família?"]},
+{id:"m4-desrespeitei-desobedeci",t:"Desrespeitei, desobedeci ou magoei meus pais ou responsáveis?"},
+{id:"m4-abandonei-pais",t:"Abandonei pais ou familiares idosos ou doentes?"},
+{id:"m4-deixei-cuidar-educacao",t:"Deixei de cuidar da educação e da fé dos meus filhos?"},
+{id:"m4-perdi-paciencia",t:"Perdi a paciência com meus filhos?"},
+{id:"m4-faltei-com-respeito",t:"Faltei com o respeito a professores, patrões ou autoridades legítimas?"},
+{id:"m4-trouxe-brigas-ressentimentos",t:"Trouxe brigas ou ressentimentos duradouros para dentro da família?"}
+]},
 {t:"Não matar",q:[
-"Guardei ódio, rancor ou desejo de vingança?",
-"Agredi alguém?",
-"Humilhei alguém com palavras?",
-"Participei, apoiei ou aconselhei um aborto?",
-"Prejudiquei minha saúde com abusos de álcool, drogas ou comida?",
-"Dirigi de forma imprudente?",
-"Deixei de perdoar alguém?",
-"Provoquei outros ao pecado com mau exemplo?"]},
+{id:"m5-guardei-odio-rancor",t:"Guardei ódio, rancor ou desejo de vingança?"},
+{id:"m5-agredi-alguem",t:"Agredi alguém?"},
+{id:"m5-humilhei-alguem",t:"Humilhei alguém com palavras?"},
+{id:"m5-participei-apoiei",t:"Participei, apoiei ou aconselhei um aborto?"},
+{id:"m5-prejudiquei-minha",t:"Prejudiquei minha saúde com abusos de álcool, drogas ou comida?"},
+{id:"m5-dirigi-forma-imprudente",t:"Dirigi de forma imprudente?"},
+{id:"m5-deixei-perdoar",t:"Deixei de perdoar alguém?"},
+{id:"m5-provoquei-outros",t:"Provoquei outros ao pecado com mau exemplo?"}
+]},
 {t:"Não pecar contra a castidade",q:[
-"Cometi atos impuros, sozinho ou com outra pessoa?",
-"Assisti a conteúdo pornográfico ou li e vi o que fere a pureza?",
-"Vivi relações sexuais fora do matrimônio?",
-"Fui infiel?",
-"Usei outra pessoa como objeto?",
-"Vesti-me, falei ou me comportei de modo que levasse outros ao pecado?"]},
+{id:"m6-cometi-atos-impuros",t:"Cometi atos impuros, sozinho ou com outra pessoa?"},
+{id:"m6-assisti-conteudo",t:"Assisti a conteúdo pornográfico ou li e vi o que fere a pureza?"},
+{id:"m6-vivi-relacoes-sexuais",t:"Vivi relações sexuais fora do matrimônio?"},
+{id:"m6-fui-infiel",t:"Fui infiel?"},
+{id:"m6-usei-outra-pessoa",t:"Usei outra pessoa como objeto?"},
+{id:"m6-vesti-falei-comportei",t:"Vesti-me, falei ou me comportei de modo que levasse outros ao pecado?"}
+]},
 {t:"Não furtar",q:[
-"Roubei ou fiquei com algo que não era meu?",
-"Não devolvi o que peguei emprestado ou não paguei o que devia?",
-"Fui desonesto no trabalho, em contratos, impostos ou contas?",
-"Desperdicei dinheiro ou tempo?",
-"Fui avarento com os pobres?",
-"Danifiquei de propósito bens dos outros ou bens públicos?"]},
+{id:"m7-roubei-fiquei",t:"Roubei ou fiquei com algo que não era meu?"},
+{id:"m7-nao-devolvi",t:"Não devolvi o que peguei emprestado ou não paguei o que devia?"},
+{id:"m7-fui-desonesto-trabalho",t:"Fui desonesto no trabalho, em contratos, impostos ou contas?"},
+{id:"m7-desperdicei-dinheiro",t:"Desperdicei dinheiro ou tempo?"},
+{id:"m7-fui-avarento",t:"Fui avarento com os pobres?"},
+{id:"m7-danifiquei-proposito",t:"Danifiquei de propósito bens dos outros ou bens públicos?"}
+]},
 {t:"Não levantar falso testemunho",q:[
-"Menti, exagerei ou enganei para tirar vantagem?",
-"Fiz fofoca, calúnia ou difamei alguém?",
-"Revelei segredos que deveria guardar?",
-"Julguei os outros com precipitação, pensando mal sem motivo?",
-"Escondi pecados na Confissão ou fiz uma confissão sem sinceridade?"]},
+{id:"m8-menti-exagerei",t:"Menti, exagerei ou enganei para tirar vantagem?"},
+{id:"m8-fiz-fofoca-calunia",t:"Fiz fofoca, calúnia ou difamei alguém?"},
+{id:"m8-revelei-segredos",t:"Revelei segredos que deveria guardar?"},
+{id:"m8-julguei-outros",t:"Julguei os outros com precipitação, pensando mal sem motivo?"},
+{id:"m8-escondi-pecados",t:"Escondi pecados na Confissão ou fiz uma confissão sem sinceridade?"}
+]},
 {t:"Guardar a pureza nos pensamentos e desejos",q:[
-"Alimentei pensamentos e fantasias impuras de propósito?",
-"Coloquei-me em ocasiões de pecado, como certas companhias, sites ou lugares?",
-"Descuidei do meu olhar e da minha imaginação?",
-"Tratei o namoro ou a amizade sem respeito pela dignidade da outra pessoa?"]},
+{id:"m9-alimentei-pensamentos",t:"Alimentei pensamentos e fantasias impuras de propósito?"},
+{id:"m9-coloquei-ocasioes",t:"Coloquei-me em ocasiões de pecado, como certas companhias, sites ou lugares?"},
+{id:"m9-descuidei-meu-olhar",t:"Descuidei do meu olhar e da minha imaginação?"},
+{id:"m9-tratei-namoro-amizade",t:"Tratei o namoro ou a amizade sem respeito pela dignidade da outra pessoa?"}
+]},
 {t:"Não cobiçar as coisas alheias",q:[
-"Tive inveja do que os outros têm ou são?",
-"Fui ganancioso ou apegado ao dinheiro e aos bens?",
-"Fiquei triste com o bem dos outros?",
-"Fiquei alegre com o mal dos outros?",
-"Fui ingrato pelo que Deus me deu?"]}
+{id:"m10-tive-inveja",t:"Tive inveja do que os outros têm ou são?"},
+{id:"m10-fui-ganancioso",t:"Fui ganancioso ou apegado ao dinheiro e aos bens?"},
+{id:"m10-fiquei-triste",t:"Fiquei triste com o bem dos outros?"},
+{id:"m10-fiquei-alegre",t:"Fiquei alegre com o mal dos outros?"},
+{id:"m10-fui-ingrato-pelo",t:"Fui ingrato pelo que Deus me deu?"}
+]}
 ];
-var KEY="exame-consciencia-v4",sel={},info={};
-try{var st=JSON.parse(localStorage.getItem(KEY)||"{}");if(st.s&&typeof st.s==="object")sel=st.s;if(st.i&&typeof st.i==="object")info=st.i}catch(e){}
+var KEY="exame-consciencia-v5",OLD_KEY="exame-consciencia-v4",HKEY="exame-consciencia-hist-v2",OLD_HKEY="exame-consciencia-hist-v1",sel={},info={};
+var VALID={};D.forEach(function(d){d.q.forEach(function(q){VALID[q.id]=1})});
+function prune(o){if(!o||typeof o!=="object")return {};Object.keys(o).forEach(function(k){if(!VALID[k])delete o[k]});return o}
+function convKeys(o){var out={};if(!o||typeof o!=="object")return out;Object.keys(o).forEach(function(k){var p=String(k).split("-");if(p.length!==2||isNaN(+p[0])||isNaN(+p[1]))return;var g=D[+p[0]],q=g&&g.q[+p[1]];if(q)out[q.id]=o[k]});return out}
+function migrate(){
+  try{
+    if(localStorage.getItem(KEY)||localStorage.getItem(HKEY))return;
+    var raw=localStorage.getItem(OLD_KEY);
+    if(raw){var st=JSON.parse(raw)||{};localStorage.setItem(KEY,JSON.stringify({s:convKeys(st.s),i:convKeys(st.i)}))}
+    var rawh=localStorage.getItem(OLD_HKEY);
+    if(rawh){var hh=JSON.parse(rawh)||{},nh={};Object.keys(hh).forEach(function(k){var e=hh[k]||{};nh[k]={s:convKeys(e.s),i:convKeys(e.i),at:e.at||0}});localStorage.setItem(HKEY,JSON.stringify(nh))}
+  }catch(e){}
+}
+migrate();
+try{var st=JSON.parse(localStorage.getItem(KEY)||"{}");if(st.s&&typeof st.s==="object")sel=prune(st.s);if(st.i&&typeof st.i==="object")info=prune(st.i)}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify({s:sel,i:info}))}catch(e){}}
 var total=0;D.forEach(function(d){total+=d.q.length});
 var list=document.getElementById("list");
@@ -242,12 +307,12 @@ function build(){
     sm.innerHTML='<span><span class="n">'+(i+1)+'º</span>'+d.t+'</span><span class="c" id="c'+i+'"></span>';
     det.appendChild(sm);
     var ul=document.createElement("ul");
-    d.q.forEach(function(q,j){
-      var id=i+"-"+j,inf=info[id]||{},li=document.createElement("li");
+    d.q.forEach(function(q){
+      var id=q.id,inf=info[id]||{},li=document.createElement("li");
       var row=document.createElement("div");row.className="q";
       var lb=document.createElement("label"),cb=document.createElement("input");
       cb.type="checkbox";cb.checked=!!sel[id];
-      var sp=document.createElement("span");sp.textContent=q;
+      var sp=document.createElement("span");sp.textContent=q.t;
       lb.appendChild(cb);lb.appendChild(sp);
       var btn=document.createElement("button");btn.type="button";btn.className="more";
       row.appendChild(lb);row.appendChild(btn);li.appendChild(row);
@@ -283,7 +348,7 @@ function build(){
         var x=[].map.call(xw.querySelectorAll(".xr"),function(r){return {t:r.querySelector(".xt").value.trim(),q:r.querySelector(".xq").value}}).filter(function(z){return z.t||z.q});
         var v={q:qty.value,n:ta.value,x:x};
         if(v.q||v.n.trim()||x.length){info[id]=v;if(!cb.checked){cb.checked=true;sel[id]=1}}else delete info[id];
-        save();sync();upd();
+        save();sync();updSoon();
       }
       qty.addEventListener("input",onIn);ta.addEventListener("input",onIn);
       sync();ul.appendChild(li);
@@ -297,22 +362,21 @@ function fmt(id,q){
   if(inf.n&&inf.n.trim())d.push(inf.n.trim().replace(/\s+/g," ")+(hq?" ("+qt+")":""));else if(hq)d.push(qt);
   (inf.x||[]).forEach(function(z){if(typeof z==="string")z={t:z,q:""};var m=Number(z.q);d.push((z.t||"(sem descrição)")+(z.q!==""&&!isNaN(m)?" ("+m+(m===1?" vez":" vezes")+")":""))});
   return {t:t,d:d};
-  return t;
 }
 function items(){
   var out=[];
   D.forEach(function(d,i){
-    var qs=[];d.q.forEach(function(q,j){var id=i+"-"+j;if(sel[id])qs.push(fmt(id,q))});
+    var qs=[];d.q.forEach(function(q){if(sel[q.id])qs.push(fmt(q.id,q.t))});
     if(qs.length)out.push({n:i+1,t:d.t,q:qs});
   });
   return out;
 }
 function upd(){
-  var n=Object.keys(sel).length;
-  document.getElementById("count").textContent=n+(n===1?" item marcado":" itens marcados");
+  var n=Object.keys(sel).length,cEl=document.getElementById("count"),ctxt=n+(n===1?" item marcado":" itens marcados");
+  if(cEl.textContent!==ctxt)cEl.textContent=ctxt;
   document.getElementById("fill").style.width=(n/total*100)+"%";
   D.forEach(function(d,i){
-    var c=0;d.q.forEach(function(q,j){if(sel[i+"-"+j])c++});
+    var c=0;d.q.forEach(function(q){if(sel[q.id])c++});
     document.getElementById("c"+i).textContent=c?c+" marcado"+(c>1?"s":""):"";
   });
   var box=document.getElementById("sum"),it=items();
@@ -323,6 +387,8 @@ function upd(){
     g.q.forEach(function(q){var p=document.createElement("p");p.textContent="– "+q.t;box.appendChild(p);q.d.forEach(function(x){var s=document.createElement("p");s.className="sub";s.textContent="• "+x;box.appendChild(s)})});
   });
 }
+var updT=null;
+function updSoon(){clearTimeout(updT);updT=setTimeout(upd,150)}
 function say(m){document.getElementById("msg").textContent=m}
 document.getElementById("copy").addEventListener("click",function(){
   var it=items();
@@ -331,28 +397,45 @@ document.getElementById("copy").addEventListener("click",function(){
   function fb(){var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand("copy")}catch(e){}document.body.removeChild(ta);say(ok?"Lista copiada.":"Não foi possível copiar. Selecione o texto da lista manualmente.")}
   try{navigator.clipboard.writeText(txt).then(function(){say("Lista copiada.")},fb)}catch(e){fb()}
 });
-var clr=document.getElementById("clear"),ct=null;
+var clr=document.getElementById("clear");
 clr.addEventListener("click",function(){
   if(!Object.keys(sel).length&&!Object.keys(info).length)return;
-  if(!ct){clr.textContent="Toque de novo para confirmar";ct=setTimeout(function(){ct=null;clr.textContent="Limpar tudo"},4000);return}
-  clearTimeout(ct);ct=null;clr.textContent="Limpar tudo";
-  sel={};info={};save();build();upd();say("Marcações e respostas apagadas.");
+  confirmar("Limpar o exame em andamento?","Marcações e respostas deste exame serão apagadas.","Limpar").then(function(ok){
+    if(!ok)return;
+    sel={};info={};save();build();upd();say("Marcações e respostas apagadas.");
+  });
 });
-var HK="exame-consciencia-hist-v1",hist={};
+var HK=HKEY,hist={};
 try{var hh=JSON.parse(localStorage.getItem(HK)||"{}");if(hh&&typeof hh==="object")hist=hh}catch(e){}
+Object.keys(hist).forEach(function(k){var e=hist[k]||{};hist[k]={s:prune(e.s||{}),i:prune(e.i||{}),at:e.at||0}});
 function hsave(){try{localStorage.setItem(HK,JSON.stringify(hist));return true}catch(e){return false}}
 function today(){var d=new Date(),p=function(n){return String(n).padStart(2,"0")};return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())}
 function br(k){var a=k.split("-");return a[2]+"/"+a[1]+"/"+a[0]}
 var dt=document.getElementById("exdate");dt.value=today();
-function ask(btn,label,need,fn){
-  var t=null,orig=btn.textContent;
+function confirmar(titulo,texto,okLabel){
+  return new Promise(function(resolve){
+    var d=document.createElement("dialog"),h=document.createElement("h2"),p=document.createElement("p");
+    h.textContent=titulo;p.textContent=texto||"";
+    var row=document.createElement("div");row.className="row";
+    var no=document.createElement("button");no.type="button";no.className="ghost";no.textContent="Cancelar";
+    var yes=document.createElement("button");yes.type="button";yes.textContent=okLabel||"Confirmar";
+    no.addEventListener("click",function(){d.close("")});
+    yes.addEventListener("click",function(){d.close("ok")});
+    row.appendChild(no);row.appendChild(yes);
+    d.appendChild(h);if(texto)d.appendChild(p);d.appendChild(row);
+    d.addEventListener("close",function(){d.remove();resolve(d.returnValue==="ok")});
+    document.body.appendChild(d);
+    d.showModal();no.focus();
+  });
+}
+function ask(btn,opts,fn){
   btn.addEventListener("click",function(){
-    if(t!==null){clearTimeout(t);t=null;btn.textContent=orig;fn();return}
-    if(!need()){fn();return}
-    btn.textContent=label;t=setTimeout(function(){t=null;btn.textContent=orig},4000);
+    if(!opts.need||opts.need()){confirmar(opts.titulo,opts.texto,opts.ok).then(function(ok){if(ok)fn()})}
+    else{fn()}
   });
 }
 function rh(){
+  dst();
   var box=document.getElementById("hist"),ks=Object.keys(hist).sort().reverse();
   box.innerHTML="";
   if(!ks.length){box.innerHTML='<p class="empty">Nenhum exame salvo ainda. Marque os itens, escolha a data e toque em Salvar exame.</p>';return}
@@ -363,12 +446,12 @@ function rh(){
     var x=document.createElement("button");x.type="button";x.className="ghost";x.textContent="Excluir";
     var sm=document.createElement("small");sm.textContent=n+(n===1?" item marcado":" itens marcados");
     r.appendChild(b);r.appendChild(o);r.appendChild(x);r.appendChild(sm);box.appendChild(r);
-    ask(o,"Toque de novo para substituir o exame atual",function(){return Object.keys(sel).length>0},function(){
+    ask(o,{titulo:"Substituir o exame em andamento?",texto:"O que está marcado agora será trocado pelo exame de "+br(k)+".",ok:"Abrir exame",need:function(){return Object.keys(sel).length>0}},function(){
       sel=JSON.parse(JSON.stringify(e.s||{}));info=JSON.parse(JSON.stringify(e.i||{}));
       save();dt.value=k;build();upd();say("Exame de "+br(k)+" aberto.");
       try{window.scrollTo({top:0,behavior:"smooth"})}catch(er){}
     });
-    ask(x,"Toque de novo para excluir",function(){return true},function(){
+    ask(x,{titulo:"Excluir o exame de "+br(k)+"?",texto:"Esta ação não pode ser desfeita.",ok:"Excluir"},function(){
       delete hist[k];hsave();rh();say("Exame de "+br(k)+" excluído.");
     });
   });
@@ -434,7 +517,7 @@ function rhome(){
   if(ix>0){var df=c0-cnt(hist[ks[ix-1]]);line+=df===0?" (igual ao exame anterior)":" ("+Math.abs(df)+(df<0?" a menos":" a mais")+" que no exame anterior)"}
   db.appendChild(mk("p","empty",line));
   D.forEach(function(g,i){
-    var m=0;g.q.forEach(function(q,j){if(e.s&&e.s[i+"-"+j])m++});
+    var m=0;g.q.forEach(function(q){if(e.s&&e.s[q.id])m++});
     var r=mk("div","cm");r.appendChild(mk("span",null,(i+1)+"º "+g.t));r.appendChild(mk("span","empty",m+"/"+g.q.length));
     var t=mk("div","t"),f=mk("i");f.style.width=(m/g.q.length*100)+"%";t.appendChild(f);r.appendChild(t);db.appendChild(r);
   });
@@ -450,12 +533,12 @@ function rhome(){
   cp.addEventListener("click",function(){
     copyText("Exame de consciência — "+br(kk)+"\n\n"+toText(it),function(){ms.textContent="Lista copiada."},function(){ms.textContent="Não foi possível copiar."});
   });
-  ask(ed,"Toque de novo para substituir o exame em andamento",function(){return Object.keys(sel).length>0},function(){
+  ask(ed,{titulo:"Substituir o exame em andamento?",texto:"O que está marcado agora será trocado pelo exame de "+br(kk)+".",ok:"Abrir exame",need:function(){return Object.keys(sel).length>0}},function(){
     sel=JSON.parse(JSON.stringify(e.s||{}));info=JSON.parse(JSON.stringify(e.i||{}));
     save();dt.value=kk;build();upd();say("Exame de "+br(kk)+" aberto.");location.hash="exame";
   });
   var dl=mk("button","ghost","Excluir exame");dl.type="button";
-  ask(dl,"Toque de novo para excluir",function(){return true},function(){delete hist[kk];hsave();rh();cur=null;flash="Exame de "+br(kk)+" excluído.";rhome()});
+  ask(dl,{titulo:"Excluir o exame de "+br(kk)+"?",texto:"Esta ação não pode ser desfeita.",ok:"Excluir"},function(){delete hist[kk];hsave();rh();cur=null;flash="Exame de "+br(kk)+" excluído.";rhome()});
   rw.appendChild(ed);rw.appendChild(cp);rw.appendChild(dl);db.appendChild(rw);db.appendChild(ms);
   body.appendChild(db);
   var lb=mk("div","box");lb.appendChild(mk("h2",null,"Todos os exames"));
@@ -471,12 +554,13 @@ function route(){
   var ex=location.hash==="#exame";
   document.getElementById("home").hidden=ex;document.getElementById("exam").hidden=!ex;document.getElementById("back").hidden=!ex;
   if(!ex)rhome();
+  dst();
   try{window.scrollTo(0,0)}catch(e){}
 }
 window.addEventListener("hashchange",route);
 document.getElementById("back").addEventListener("click",function(){location.hash="inicio"});
 document.getElementById("cont").addEventListener("click",function(){location.hash="exame"});
-ask(document.getElementById("newex"),"Descartar o exame em andamento e começar novo?",function(){return Object.keys(sel).length>0},function(){
+ask(document.getElementById("newex"),{titulo:"Começar um novo exame?",texto:"O que está marcado agora será descartado.",ok:"Descartar e começar",need:function(){return Object.keys(sel).length>0}},function(){
   sel={};info={};save();build();upd();dt.value=today();say("");location.hash="exame";
 });
 var KEYS=["bg","surface","ink","mute","line","accent","on-accent","gold","mark","ray","h1","h2","cite"];
@@ -507,18 +591,18 @@ function applyPal(){
   document.getElementById("hnote").textContent=p.note;
 }
 var pbtn=document.getElementById("pbtn"),pm=document.getElementById("pmenu");
-function closeP(){pm.hidden=true;pbtn.setAttribute("aria-expanded","false")}
+function closeP(){if(pm.hidden)return;pm.hidden=true;pbtn.setAttribute("aria-expanded","false")}
 function rpm(){
   pm.innerHTML="";
   Object.keys(PAL).forEach(function(id){
     var p=PAL[id],b=mk("button","po");b.type="button";
-    b.setAttribute("role","menuitemradio");b.setAttribute("aria-checked",String(id===palId));
+    b.setAttribute("aria-pressed",String(id===palId));
     var sw=mk("span","sw");
     [p.l[5],p.l[9],p.l[1]].forEach(function(c){var i=mk("i");i.style.background=c;sw.appendChild(i)});
     var tx=mk("span");tx.appendChild(document.createTextNode(p.n));tx.appendChild(mk("small",null,p.d));
     b.appendChild(sw);b.appendChild(tx);
     if(id===palId)b.appendChild(mk("span","ck","✓"));
-    b.addEventListener("click",function(){palId=id;try{localStorage.setItem(PK2,id)}catch(e){}applyPal();rpm();closeP()});
+    b.addEventListener("click",function(){palId=id;try{localStorage.setItem(PK2,id)}catch(e){}applyPal();rpm();closeP();pbtn.focus()});
     pm.appendChild(b);
   });
 }
@@ -532,7 +616,162 @@ try{var st0=localStorage.getItem(TK);if(st0==="light"||st0==="dark")root.setAttr
 tbtn.addEventListener("click",function(){var t=curTheme()==="dark"?"light":"dark";root.setAttribute("data-theme",t);try{localStorage.setItem(TK,t)}catch(e){}lab()});
 lab();
 try{window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){lab()})}catch(e){}
+/* ---------- cópia, restauração, limpeza e durabilidade ---------- */
+var BK="exame-consciencia-ultima-copia",PRE="exame-consciencia-pre-import";
+function dmsg(m){var e=document.getElementById("dmsg");if(e)e.textContent=m}
+function brdate(iso){if(!iso)return "";var d=new Date(iso);if(isNaN(d.getTime()))return "";return d.toLocaleDateString("pt-BR")}
+function dst(){
+  var el=document.getElementById("dst");if(!el)return;
+  var n=Object.keys(hist).length,last="";
+  try{last=localStorage.getItem(BK)||""}catch(e){}
+  el.textContent=n+(n===1?" exame salvo":" exames salvos")+(last?" · última cópia em "+brdate(last):" · nenhuma cópia feita");
+}
+function snapshot(){
+  return {app:"exame-de-consciencia",schema:5,exportedAt:new Date().toISOString(),
+    settings:{theme:root.getAttribute("data-theme")||"",pal:palId},
+    current:{s:sel,i:info},exams:hist};
+}
+function escolher(titulo,texto,opcoes){
+  return new Promise(function(resolve){
+    var d=document.createElement("dialog"),h=document.createElement("h2"),pp=document.createElement("p");
+    h.textContent=titulo;pp.textContent=texto||"";
+    var row=document.createElement("div");row.className="row";
+    var cancel=document.createElement("button");cancel.type="button";cancel.className="ghost";cancel.textContent="Cancelar";
+    cancel.addEventListener("click",function(){d.close("")});
+    row.appendChild(cancel);
+    opcoes.forEach(function(o){
+      var b=document.createElement("button");b.type="button";b.textContent=o.label;
+      b.addEventListener("click",function(){d.close(o.value)});
+      row.appendChild(b);
+    });
+    d.appendChild(h);if(texto)d.appendChild(pp);d.appendChild(row);
+    d.addEventListener("close",function(){d.remove();resolve(d.returnValue||"")});
+    document.body.appendChild(d);d.showModal();cancel.focus();
+  });
+}
+function abrirTexto(txt){
+  var d=document.createElement("dialog"),h=document.createElement("h2"),pp=document.createElement("p");
+  h.textContent="Copie o texto abaixo";pp.textContent="Salve como um arquivo .json.";
+  var ta=document.createElement("textarea");ta.value=txt;ta.rows=12;ta.readOnly=true;
+  var row=document.createElement("div");row.className="row";
+  var b=document.createElement("button");b.type="button";b.textContent="Fechar";
+  b.addEventListener("click",function(){d.close()});
+  row.appendChild(b);
+  d.appendChild(h);d.appendChild(pp);d.appendChild(ta);d.appendChild(row);
+  d.addEventListener("close",function(){d.remove()});
+  document.body.appendChild(d);d.showModal();ta.select();
+}
+function exportar(){
+  var json=JSON.stringify(snapshot(),null,2),nome="exame-de-consciencia-"+today()+".json";
+  try{
+    var blob=new Blob([json],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download=nome;a.rel="noopener";
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(url)},2000);
+    try{localStorage.setItem(BK,new Date().toISOString())}catch(e){}
+    dmsg("Cópia gerada: "+nome+".");
+  }catch(e){abrirTexto(json);}
+  dst();
+}
+function limparMapa(o){
+  var out={};
+  if(!o||typeof o!=="object")return out;
+  Object.keys(o).forEach(function(k){
+    if(VALID[k]){out[k]=o[k];return}
+    var p2=String(k).split("-");
+    if(p2.length!==2)return;
+    var g=D[+p2[0]],q=g&&g.q[+p2[1]];
+    if(q)out[q.id]=o[k];
+  });
+  return out;
+}
+function normalizar(data){
+  if(!data||typeof data!=="object")throw new Error("estrutura não reconhecida");
+  if(!data.exams&&!data.current)throw new Error("sem exames nem exame em andamento");
+  var out={exams:{},current:null},ex=data.exams||{};
+  Object.keys(ex).forEach(function(k){
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(k))return;
+    var e=ex[k]||{};
+    out.exams[k]={s:limparMapa(e.s),i:limparMapa(e.i),at:+e.at||0};
+  });
+  if(data.current&&typeof data.current==="object")out.current={s:limparMapa(data.current.s),i:limparMapa(data.current.i)};
+  return out;
+}
+function contarItens(h){var c=0;Object.keys(h||{}).forEach(function(k){c+=Object.keys((h[k]&&h[k].s)||{}).length});return c}
+function aplicarImport(data){
+  var n;
+  try{n=normalizar(data)}catch(e){dmsg("Não importei: "+e.message+".");return}
+  var datas=Object.keys(n.exams).sort();
+  var txt=datas.length?(datas.length+(datas.length===1?" exame":" exames")+", "+contarItens(n.exams)+" itens marcados, de "+br(datas[0])+" a "+br(datas[datas.length-1])+"."):"A cópia não tem exames salvos.";
+  escolher("Restaurar cópia","Como aplicar esta cópia? "+txt,[{label:"Mesclar",value:"merge"},{label:"Substituir",value:"replace"}]).then(function(acao){
+    if(!acao)return;
+    try{localStorage.setItem(PRE,JSON.stringify({s:sel,i:info,exams:hist,when:Date.now()}))}catch(e){}
+    if(acao==="replace"){
+      hist=n.exams;
+      if(n.current&&Object.keys(n.current.s).length){sel=n.current.s;info=n.current.i}
+    }else{
+      Object.keys(n.exams).forEach(function(k){
+        var atual=hist[k];
+        if(!atual||(n.exams[k].at||0)>=(atual.at||0))hist[k]=n.exams[k];
+      });
+      if(!Object.keys(sel).length&&n.current&&Object.keys(n.current.s).length){sel=n.current.s;info=n.current.i}
+    }
+    save();hsave();build();upd();rh();rhome();
+    dmsg("Cópia restaurada: "+datas.length+(datas.length===1?" exame":" exames")+".");
+    dst();
+  });
+}
+function apagarTudo(){
+  [KEY,OLD_KEY,HKEY,OLD_HKEY,BK,PRE,"exame-consciencia-tema","exame-consciencia-paleta"].forEach(function(k){
+    try{localStorage.removeItem(k)}catch(e){}
+  });
+  location.reload();
+}
+function persistUI(){
+  var note=document.getElementById("pnote"),row=document.getElementById("prow");
+  if(!note||!row)return;
+  if(!navigator.storage||!navigator.storage.persisted)return;
+  navigator.storage.persisted().then(function(p){
+    if(p){note.hidden=true;row.hidden=true;return}
+    note.hidden=false;note.textContent="Este navegador pode apagar os dados sozinho se precisar de espaço.";
+    row.hidden=false;
+  }).catch(function(){});
+}
+(function ligarDados(){
+  var b=document.getElementById("backup"),r=document.getElementById("restore"),w=document.getElementById("wipe"),
+      f=document.getElementById("file"),pb=document.getElementById("persist");
+  if(b)b.addEventListener("click",exportar);
+  if(r&&f)r.addEventListener("click",function(){f.click()});
+  if(f)f.addEventListener("change",function(){
+    var arq=f.files&&f.files[0];f.value="";
+    if(!arq)return;
+    var rd=new FileReader();
+    rd.onload=function(){
+      var data;
+      try{data=JSON.parse(String(rd.result))}catch(e){dmsg("Arquivo não é um JSON válido.");return}
+      aplicarImport(data);
+    };
+    rd.onerror=function(){dmsg("Não consegui ler o arquivo.")};
+    rd.readAsText(arq);
+  });
+  if(w)w.addEventListener("click",function(){
+    escolher("Apagar todos os dados?","Exames salvos, o exame em andamento e as preferências serão removidos deste aparelho. Não há como desfazer.",[{label:"Apagar tudo",value:"ok"}]).then(function(v){if(v==="ok")apagarTudo()});
+  });
+  if(pb)pb.addEventListener("click",function(){
+    if(!(navigator.storage&&navigator.storage.persist))return;
+    navigator.storage.persist().then(function(ok){
+      dmsg(ok?"Armazenamento protegido contra limpeza automática.":"O navegador não concedeu armazenamento persistente.");
+      persistUI();
+    }).catch(function(){});
+  });
+  dst();persistUI();
+})();
 route();
+dst();persistUI();
+if("serviceWorker" in navigator&&location.protocol!=="file:"){
+  window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
+}
+window.addEventListener("beforeprint",function(){[].forEach.call(document.querySelectorAll("details"),function(d){d.open=true})});
 </script>
 </body>
 </html>
