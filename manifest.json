@@ -1,0 +1,31 @@
+{
+  "name": "Exame de consciência",
+  "short_name": "Exame",
+  "description": "Roteiro pelos Dez Mandamentos para preparar a Confissão. Seus dados ficam no seu aparelho.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f2f6fc",
+  "theme_color": "#1f4f9e",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
