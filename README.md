@@ -77,10 +77,13 @@ icon-512.png    ícone PWA
 
 ## Publicar uma versão nova
 
-1. Altere `index.html`.
-2. **Incremente `CACHE` em `sw.js`** (`"exame-v1"` → `"exame-v2"`). Se esquecer, quem já visitou
-   continua recebendo a versão antiga do cache.
-3. Faça commit em `main`; o GitHub Pages publica automaticamente.
+1. Altere `index.html` e faça commit em `main`; o GitHub Pages publica automaticamente.
+
+O `sw.js` usa **network-first** para o HTML: quem está online recebe sempre a versão publicada, e o
+cache só entra quando a rede falha (offline). Por isso **não é preciso mexer em `CACHE` a cada deploy**.
+
+Bumpe `"exame-v2"` → `"exame-v3"` apenas quando mudar a estratégia de cache ou a lista de `ASSETS`:
+o `activate` apaga os caches antigos e todo mundo passa a usar a caixa nova.
 
 ## Licença
 
