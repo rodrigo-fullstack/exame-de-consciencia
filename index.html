@@ -108,10 +108,23 @@ h1::after{content:"";display:block;width:56px;height:3px;border-radius:2px;backg
 #church-form:not([hidden]){display:grid;gap:12px}
 #church-form input{max-width:none}
 #church-form button{justify-self:start}
-#church-results{padding:0;overflow-wrap:anywhere}
+#church-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0;overflow-wrap:anywhere}
+#church-results .box{display:flex;flex-direction:column;margin:0}
 #church-results h3{margin:0}
 #church-results p{margin:.45rem 0;white-space:pre-wrap}
-#church-results a{color:var(--accent)}
+#church-results a{color:var(--accent);margin-top:auto}
+.church-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.church-header h1{margin:0}
+.church-header button{flex:none}
+.church-address{display:grid;gap:3px;margin:.4rem 0 .8rem;font-size:.95rem}
+.church-address div{display:flex;flex-wrap:wrap;column-gap:.4rem}
+.church-address dt{font-weight:600}
+.church-address dd{margin:0}
+.church-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:540px){
+  #church-results,.church-fields{grid-template-columns:1fr}
+  .church-header button{padding:8px 10px;font-size:.875rem}
+}
 .verse{margin:.7rem 0 0;padding:0 4px}
 :root[data-theme="light"]{color-scheme:light}
 :root[data-theme="dark"]{color-scheme:dark}
@@ -206,23 +219,42 @@ details,.cm{break-inside:avoid}
 <p class="note">Este roteiro é um apoio e não substitui o sacerdote. Na Confissão, diga os pecados com simplicidade e, se tiver dúvida sobre a gravidade de algo, pergunte a ele. O que você marca fica salvo apenas neste aparelho.</p>
 </div>
 <section id="churches" hidden>
+<header class="church-header">
 <h1>Onde se confessar</h1>
+<button id="church-register-nav" type="button">Cadastrar igreja</button>
+</header>
+<section aria-labelledby="church-list-title">
+<h2 id="church-list-title">Igrejas cadastradas</h2>
+<p id="church-list-status" class="empty" role="status"></p>
+<button id="church-retry" class="ghost" type="button" hidden>Tentar novamente</button>
+<ul id="church-results"></ul>
+<div class="row">
+<button id="church-prev" class="ghost" type="button" hidden>Anterior</button>
+<button id="church-more" class="ghost" type="button" hidden>Próxima</button>
+</div>
+</section>
+</section>
+<section id="church-register" hidden>
+<header class="church-header">
+<h1>Cadastrar igreja</h1>
+<button id="church-list-nav" class="ghost" type="button">Voltar à lista</button>
+</header>
 <div class="box">
-<h2>Cadastrar igreja</h2>
 <p class="empty" id="church-unavailable" hidden>O cadastro público ainda não está configurado.</p>
 <form id="church-form" hidden>
 <p class="empty" style="margin:0">Os dados da igreja ficarão visíveis para todos os visitantes.</p>
 <label class="f">Nome da igreja<input name="name" maxlength="160" required></label>
 <label class="f">Horários de confissão<textarea name="schedule" maxlength="1000" placeholder="Ex.: Terças e quintas, das 17h às 19h" required></textarea></label>
-<label class="f">Endereço da igreja<input name="address" maxlength="300" placeholder="Rua, número, bairro, cidade e estado" required></label>
+<div class="church-fields">
+<label class="f">Rua<input name="street" maxlength="120" required></label>
+<label class="f">Bairro<input name="neighborhood" maxlength="70" required></label>
+<label class="f">Número<input name="street_number" maxlength="20" placeholder="Ex.: 161 ou s/n" required></label>
+<label class="f">Cidade/UF<input name="city_uf" maxlength="80" placeholder="Ex.: Salvador/BA" required></label>
+</div>
 <button type="submit">Cadastrar igreja</button>
 </form>
 <p id="church-save-status" class="empty" role="status"></p>
 </div>
-<h2>Igrejas cadastradas</h2>
-<p id="church-list-status" class="empty" role="status"></p>
-<ul id="church-results"></ul>
-<button id="church-more" class="ghost" type="button" hidden>Carregar mais igrejas</button>
 </section>
 </main>
 
@@ -578,12 +610,13 @@ function rhome(){
   body.appendChild(lb);
 }
 function route(){
-  var ex=location.hash==="#exame", igrejas=location.hash==="#igrejas";
-  document.getElementById("home").hidden=ex||igrejas;
+  var ex=location.hash==="#exame", igrejas=location.hash==="#igrejas", cadastro=location.hash==="#cadastrar-igreja";
+  document.getElementById("home").hidden=ex||igrejas||cadastro;
   document.getElementById("exam").hidden=!ex;
   document.getElementById("churches").hidden=!igrejas;
-  document.getElementById("back").hidden=!ex&&!igrejas;
-  if(!ex&&!igrejas)rhome();
+  document.getElementById("church-register").hidden=!cadastro;
+  document.getElementById("back").hidden=!ex&&!igrejas&&!cadastro;
+  if(!ex&&!igrejas&&!cadastro)rhome();
   dst();
   try{window.scrollTo(0,0)}catch(e){}
 }
@@ -591,6 +624,8 @@ window.addEventListener("hashchange",route);
 document.getElementById("back").addEventListener("click",function(){location.hash="inicio"});
 document.getElementById("cont").addEventListener("click",function(){location.hash="exame"});
 document.getElementById("church-nav").addEventListener("click",function(){location.hash="igrejas"});
+document.getElementById("church-register-nav").addEventListener("click",function(){location.hash="cadastrar-igreja"});
+document.getElementById("church-list-nav").addEventListener("click",function(){location.hash="igrejas"});
 ask(document.getElementById("newex"),{titulo:"Começar um novo exame?",texto:"O que está marcado agora será descartado.",ok:"Descartar e começar",need:function(){return Object.keys(sel).length>0}},function(){
   sel={};info={};save();build();upd();dt.value=today();say("");location.hash="exame";
 });

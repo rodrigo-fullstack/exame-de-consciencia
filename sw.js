@@ -5,7 +5,7 @@
    - Demais arquivos: stale-while-revalidate (entrega o cache e atualiza atrás).
    O CACHE é versionado: ao mudar a estratégia, a lista de ASSETS ou o HTML de forma
    estrutural, incremente ("exame-v2" -> "exame-v3"). O activate apaga os caches antigos. */
-var CACHE = "exame-v3";
+var CACHE = "exame-v4";
 var OFFLINE = "./index.html";
 var ASSETS = [
   "./",

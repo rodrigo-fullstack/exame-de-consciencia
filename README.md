@@ -14,7 +14,7 @@ Publicado em: https://exame-de-consciencia-rose.vercel.app/
 - 5 temas litúrgicos (Santa Dulce, Tempo Comum, Advento/Quaresma, Natal/Páscoa, Pentecostes) e modo claro/escuro.
 - Cópia de segurança em arquivo `.json` (exportar/restaurar) e botão para apagar todos os dados.
 - Funciona offline depois da primeira visita (service worker).
-- Cadastro público de igrejas para confissão, com horários, endereço e link para o mapa.
+- Diretório público de igrejas para confissão, com horários, endereço por campo e link para o mapa.
 
 ## Como rodar localmente
 
@@ -30,7 +30,7 @@ não estará disponível.
 
 ## Configurar o cadastro público de igrejas
 
-1. No SQL Editor de um projeto Supabase, execute a migração em `supabase/migrations/`.
+1. No SQL Editor de um projeto Supabase, execute as migrações em `supabase/migrations/` por ordem de nome.
 2. Preencha `projectUrl` e `publishableKey` em `igrejas.js` com a URL e a chave publicável do projeto.
 3. Sirva o site por HTTP para testar. O Vercel publica o site a partir da branch `main` do GitHub.
 

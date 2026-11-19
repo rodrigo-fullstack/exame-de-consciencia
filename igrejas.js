@@ -6,16 +6,26 @@
   var publishableKey = "sb_publishable_wiAuTbYUdmv6GK18L--j7g_PuHcbdou";
   var endpoint = projectUrl.replace(/\/$/, "") + "/rest/v1/igrejas";
   var configured = Boolean(projectUrl && publishableKey);
-  var pageSize = 20;
-  var cursor = null;
+  var pageSize = 4;
+  var pages = [null];
+  var nextCursor = null;
+  var retryPages = pages;
   var loading = false;
+  var addressFields = [
+    ["street", "Rua"],
+    ["neighborhood", "Bairro"],
+    ["street_number", "Número"],
+    ["city_uf", "Cidade/UF"]
+  ];
 
   var form = document.getElementById("church-form");
   var submit = form.querySelector("button[type=submit]");
   var saveStatus = document.getElementById("church-save-status");
   var listStatus = document.getElementById("church-list-status");
   var results = document.getElementById("church-results");
+  var previous = document.getElementById("church-prev");
   var more = document.getElementById("church-more");
+  var retry = document.getElementById("church-retry");
   document.getElementById("church-unavailable").hidden = configured;
   form.hidden = !configured;
 
@@ -26,8 +36,18 @@
     name.textContent = church.name;
     var schedule = document.createElement("p");
     schedule.textContent = "Horários de confissão: " + church.schedule;
-    var address = document.createElement("p");
-    address.textContent = church.address;
+    var address = document.createElement("dl");
+    address.className = "church-address";
+    addressFields.forEach(function (field) {
+      var row = document.createElement("div");
+      var label = document.createElement("dt");
+      var value = document.createElement("dd");
+      label.textContent = field[1] + ":";
+      value.textContent = church[field[0]] || "Não informado";
+      row.append(label, value);
+      address.appendChild(row);
+    });
+    var incompleteAddress = addressFields.some(function (field) { return !church[field[0]]; });
     var map = document.createElement("a");
     map.href = "https://www.google.com/maps/search/?api=1&query=" +
       encodeURIComponent(church.name + ", " + church.address);
@@ -35,21 +55,24 @@
     map.rel = "noopener noreferrer";
     map.textContent = "Abrir no mapa";
     map.setAttribute("aria-label", "Abrir " + church.name + " no mapa");
-    card.append(name, schedule, address, map);
+    card.append(name, schedule, address);
+    if (incompleteAddress) {
+      var legacyAddress = document.createElement("p");
+      legacyAddress.textContent = "Endereço informado: " + church.address;
+      card.appendChild(legacyAddress);
+    }
+    card.appendChild(map);
     results.appendChild(card);
   }
 
-  async function loadChurches(reset) {
+  async function loadChurches(targetPages) {
     if (!configured || loading) return;
-    if (reset) {
-      cursor = null;
-      results.replaceChildren();
-    }
+    var cursor = targetPages[targetPages.length - 1];
     loading = true;
-    more.disabled = true;
+    previous.disabled = more.disabled = retry.disabled = true;
     listStatus.textContent = "Carregando igrejas…";
     var query = new URLSearchParams({
-      select: "id,name,schedule,address",
+      select: "id,name,schedule,address,street,neighborhood,street_number,city_uf",
       order: "id.desc",
       limit: String(pageSize + 1)
     });
@@ -63,18 +86,22 @@
       if (!response.ok) throw new Error("Falha na consulta");
       var page = await response.json();
       var churches = page.slice(0, pageSize);
+      results.replaceChildren();
       churches.forEach(addChurch);
-      if (churches.length) cursor = churches[churches.length - 1].id;
-      more.hidden = page.length <= pageSize;
-      more.textContent = "Carregar mais igrejas";
-      listStatus.textContent = results.childElementCount ? "" : "Nenhuma igreja cadastrada.";
+      pages = targetPages;
+      nextCursor = page.length > pageSize ? churches[churches.length - 1].id : null;
+      previous.hidden = pages.length === 1;
+      more.hidden = nextCursor === null;
+      retry.hidden = true;
+      listStatus.textContent = churches.length ? "" : (pages.length === 1 ?
+        "Nenhuma igreja cadastrada." : "Nenhuma igreja cadastrada nesta página.");
     } catch (error) {
       listStatus.textContent = "Não foi possível consultar as igrejas. Verifique sua conexão.";
-      more.textContent = "Tentar novamente";
-      more.hidden = false;
+      retryPages = targetPages;
+      retry.hidden = false;
     } finally {
       loading = false;
-      more.disabled = false;
+      previous.disabled = more.disabled = retry.disabled = false;
     }
   }
 
@@ -85,7 +112,7 @@
     event.preventDefault();
     if (!configured || submit.disabled) return;
     var church = {};
-    for (var field of ["name", "schedule", "address"]) {
+    for (var field of ["name", "schedule"].concat(addressFields.map(function (entry) { return entry[0]; }))) {
       var input = form.elements.namedItem(field);
       church[field] = input.value.trim();
       if (!church[field]) {
@@ -94,6 +121,15 @@
         return;
       }
     }
+    var cityUf = church.city_uf.match(/^([^/]+?)\s*\/\s*([a-z]{2})$/i);
+    if (!cityUf || !cityUf[1].trim()) {
+      var cityInput = form.elements.namedItem("city_uf");
+      cityInput.setCustomValidity("Informe cidade e UF no formato Salvador/BA.");
+      cityInput.reportValidity();
+      return;
+    }
+    church.city_uf = cityUf[1].trim() + "/" + cityUf[2].toUpperCase();
+    church.address = [church.street, church.street_number, church.neighborhood, church.city_uf].join(", ");
 
     submit.disabled = true;
     saveStatus.textContent = "Cadastrando igreja…";
@@ -114,8 +150,6 @@
       if (!response.ok) throw new Error("Falha no cadastro");
       form.reset();
       saveStatus.textContent = "Igreja cadastrada e disponível para consulta pública.";
-      await currentLoad;
-      refresh();
     } catch (error) {
       saveStatus.textContent = "Não foi possível cadastrar a igreja. Tente novamente.";
     } finally {
@@ -123,15 +157,17 @@
     }
   });
 
-  var currentLoad;
-  function refresh() {
-    if (!loading) currentLoad = loadChurches(true);
-  }
+  previous.addEventListener("click", function () {
+    if (pages.length > 1) loadChurches(pages.slice(0, -1));
+  });
   more.addEventListener("click", function () {
-    currentLoad = loadChurches(cursor === null);
+    if (nextCursor !== null) loadChurches(pages.concat(nextCursor));
+  });
+  retry.addEventListener("click", function () {
+    loadChurches(retryPages);
   });
   function loadOnRoute() {
-    if (location.hash === "#igrejas") refresh();
+    if (location.hash === "#igrejas") loadChurches([null]);
   }
   window.addEventListener("hashchange", loadOnRoute);
   loadOnRoute();
