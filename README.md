@@ -1,10 +1,10 @@
 # exame-de-consciencia
 
 Site para fazer exame de consciência católico a partir dos Dez Mandamentos, usado para preparar a
-Confissão. Funciona como app instalável (PWA) e **não envia nenhum dado para servidor**: tudo fica no
-aparelho de quem usa.
+Confissão. Funciona como app instalável (PWA). **Os exames, o histórico e as preferências ficam no
+aparelho de quem usa.** O cadastro público de igrejas usa um banco compartilhado.
 
-Publicado em: https://rodrigo-fullstack.github.io/exame-de-consciencia/
+Publicado em: https://exame-de-consciencia-rose.vercel.app/
 
 ## O que faz
 
@@ -14,6 +14,7 @@ Publicado em: https://rodrigo-fullstack.github.io/exame-de-consciencia/
 - 5 temas litúrgicos (Santa Dulce, Tempo Comum, Advento/Quaresma, Natal/Páscoa, Pentecostes) e modo claro/escuro.
 - Cópia de segurança em arquivo `.json` (exportar/restaurar) e botão para apagar todos os dados.
 - Funciona offline depois da primeira visita (service worker).
+- Cadastro público de igrejas para confissão, com horários, endereço e link para o mapa.
 
 ## Como rodar localmente
 
@@ -27,9 +28,19 @@ python -m http.server 8000
 Abrir `index.html` direto também funciona para testar a interface; só o modo offline/instalação
 não estará disponível.
 
-## Onde ficam os dados (e quando se perdem)
+## Configurar o cadastro público de igrejas
 
-Tudo é gravado no `localStorage` do navegador, com estas chaves:
+1. No SQL Editor de um projeto Supabase, execute a migração em `supabase/migrations/`.
+2. Preencha `projectUrl` e `publishableKey` em `igrejas.js` com a URL e a chave publicável do projeto.
+3. Sirva o site por HTTP para testar. O Vercel publica o site a partir da branch `main` do GitHub.
+
+O cadastro e a consulta precisam de internet. Qualquer visitante pode cadastrar igrejas sem conta,
+e os registros aparecem na lista assim que são salvos. Correções e exclusões podem ser feitas pela
+administração do banco.
+
+## Onde ficam os dados pessoais (e quando se perdem)
+
+Os dados pessoais são gravados no `localStorage` do navegador, com estas chaves:
 
 | Chave | Conteúdo |
 |---|---|
@@ -68,6 +79,7 @@ protegem contra reordenação, mas a migração de quem ainda está na v4 depend
 
 ```
 index.html      aplicativo completo (HTML + CSS + JS, sem build)
+igrejas.js      integração do diretório público com o Supabase
 manifest.json   metadados da PWA
 sw.js           service worker (cache versionado)
 icon.svg        ícone vetorial
@@ -77,7 +89,8 @@ icon-512.png    ícone PWA
 
 ## Publicar uma versão nova
 
-1. Altere `index.html` e faça commit em `main`; o GitHub Pages publica automaticamente.
+Envie as alterações para `main` no GitHub. O Vercel publica automaticamente os arquivos estáticos
+listados em `vercel.json`.
 
 O `sw.js` usa **network-first** para o HTML: quem está online recebe sempre a versão publicada, e o
 cache só entra quando a rede falha (offline). Por isso **não é preciso mexer em `CACHE` a cada deploy**.

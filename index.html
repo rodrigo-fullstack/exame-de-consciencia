@@ -11,7 +11,7 @@
 <meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="Exame de consciência">
 <meta property="og:description" content="Roteiro pelos Dez Mandamentos para preparar a Confissão. Seus dados ficam só no seu aparelho.">
-<meta property="og:url" content="https://rodrigo-fullstack.github.io/exame-de-consciencia/">
+<meta property="og:url" content="https://exame-de-consciencia-rose.vercel.app/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f4f9e'/%3E%3Cg stroke='%23f2b705' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M32 50V20M22 46 13 34M42 46l9-12M24 32l-6-9M40 32l6-9'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="manifest" href="manifest.json">
@@ -105,6 +105,13 @@ h1::after{content:"";display:block;width:56px;height:3px;border-radius:2px;backg
 .f input,.f textarea{font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%}
 .f input{max-width:150px}
 .f textarea{resize:vertical;min-height:64px}
+#church-form:not([hidden]){display:grid;gap:12px}
+#church-form input{max-width:none}
+#church-form button{justify-self:start}
+#church-results{padding:0;overflow-wrap:anywhere}
+#church-results h3{margin:0}
+#church-results p{margin:.45rem 0;white-space:pre-wrap}
+#church-results a{color:var(--accent)}
 .verse{margin:.7rem 0 0;padding:0 4px}
 :root[data-theme="light"]{color-scheme:light}
 :root[data-theme="dark"]{color-scheme:dark}
@@ -146,7 +153,7 @@ details,.cm{break-inside:avoid}
 <div class="hero"><svg viewBox="0 0 320 84" role="img" aria-label="Raios de luz"><g stroke="var(--ray)" stroke-width="3" stroke-linecap="round"><line x1="183.6" y1="79.8" x2="232.9" y2="71.1"/><line x1="180.8" y1="72" x2="213.7" y2="53"/><line x1="175.4" y1="65.6" x2="207.6" y2="27.3"/><line x1="168.2" y1="61.4" x2="181.2" y2="25.7"/><line x1="160" y1="60" x2="160" y2="10"/><line x1="151.8" y1="61.4" x2="138.8" y2="25.7"/><line x1="144.6" y1="65.6" x2="112.4" y2="27.3"/><line x1="139.2" y1="72" x2="106.3" y2="53"/><line x1="136.4" y1="79.8" x2="87.1" y2="71.1"/></g><path d="M144 84a16 16 0 0 1 32 0z" fill="var(--ray)"/></svg><blockquote class="verse"><p id="vq">“O importante é fazer a caridade, não falar de caridade.”</p><cite id="vc">Santa Dulce dos Pobres</cite></blockquote></div>
 <h1>Exame de consciência</h1>
 <p class="lead">Acompanhe seus exames ao longo do tempo e comece um novo quando quiser preparar a Confissão.</p>
-<div class="row"><button id="newex" type="button">Novo exame de consciência</button><button id="cont" class="ghost" type="button" hidden></button></div>
+<div class="row"><button id="newex" type="button">Novo exame de consciência</button><button id="cont" class="ghost" type="button" hidden></button><button id="church-nav" class="ghost" type="button">Onde se confessar</button></div>
 <div id="hbody"></div>
 <div class="box" id="dados">
 <h2>Seus dados</h2>
@@ -198,8 +205,28 @@ details,.cm{break-inside:avoid}
 
 <p class="note">Este roteiro é um apoio e não substitui o sacerdote. Na Confissão, diga os pecados com simplicidade e, se tiver dúvida sobre a gravidade de algo, pergunte a ele. O que você marca fica salvo apenas neste aparelho.</p>
 </div>
+<section id="churches" hidden>
+<h1>Onde se confessar</h1>
+<div class="box">
+<h2>Cadastrar igreja</h2>
+<p class="empty" id="church-unavailable" hidden>O cadastro público ainda não está configurado.</p>
+<form id="church-form" hidden>
+<p class="empty" style="margin:0">Os dados da igreja ficarão visíveis para todos os visitantes.</p>
+<label class="f">Nome da igreja<input name="name" maxlength="160" required></label>
+<label class="f">Horários de confissão<textarea name="schedule" maxlength="1000" placeholder="Ex.: Terças e quintas, das 17h às 19h" required></textarea></label>
+<label class="f">Endereço da igreja<input name="address" maxlength="300" placeholder="Rua, número, bairro, cidade e estado" required></label>
+<button type="submit">Cadastrar igreja</button>
+</form>
+<p id="church-save-status" class="empty" role="status"></p>
+</div>
+<h2>Igrejas cadastradas</h2>
+<p id="church-list-status" class="empty" role="status"></p>
+<ul id="church-results"></ul>
+<button id="church-more" class="ghost" type="button" hidden>Carregar mais igrejas</button>
+</section>
 </main>
 
+<script src="igrejas.js"></script>
 <script>
 var D=[
 {t:"Amar a Deus sobre todas as coisas",q:[
@@ -551,15 +578,19 @@ function rhome(){
   body.appendChild(lb);
 }
 function route(){
-  var ex=location.hash==="#exame";
-  document.getElementById("home").hidden=ex;document.getElementById("exam").hidden=!ex;document.getElementById("back").hidden=!ex;
-  if(!ex)rhome();
+  var ex=location.hash==="#exame", igrejas=location.hash==="#igrejas";
+  document.getElementById("home").hidden=ex||igrejas;
+  document.getElementById("exam").hidden=!ex;
+  document.getElementById("churches").hidden=!igrejas;
+  document.getElementById("back").hidden=!ex&&!igrejas;
+  if(!ex&&!igrejas)rhome();
   dst();
   try{window.scrollTo(0,0)}catch(e){}
 }
 window.addEventListener("hashchange",route);
 document.getElementById("back").addEventListener("click",function(){location.hash="inicio"});
 document.getElementById("cont").addEventListener("click",function(){location.hash="exame"});
+document.getElementById("church-nav").addEventListener("click",function(){location.hash="igrejas"});
 ask(document.getElementById("newex"),{titulo:"Começar um novo exame?",texto:"O que está marcado agora será descartado.",ok:"Descartar e começar",need:function(){return Object.keys(sel).length>0}},function(){
   sel={};info={};save();build();upd();dt.value=today();say("");location.hash="exame";
 });
